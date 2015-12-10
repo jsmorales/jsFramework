@@ -26,8 +26,8 @@ class Conexion{
      */
 
     public function connect(){
-              
-		$this->stringconection= new mysqli($this->hostconection, $this->userconection,  $this->passconection,$this->dbconection);
+
+        $this->stringconection= new mysqli($this->hostconection, $this->userconection,  $this->passconection,$this->dbconection);
 		
         $conn = $this->stringconection;
 
