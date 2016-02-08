@@ -1,6 +1,6 @@
 <?php
 
-include_once '../Conexion/Conexion.php';
+include_once '../conexion/conexion.php';
 
 
 class GenericoDAO {
