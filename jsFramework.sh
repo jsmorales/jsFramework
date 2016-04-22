@@ -22,7 +22,7 @@ if [ $1 == "DAO" ] && [ $2 ] ; then
 	#ingresa en la carpeta correspondiente
 	cd DAO/
 
-	#inserta contenido
+	#inserta contenido------------------------------------------------------
 	echo "<?php" >> ${NOMBRE_DAO}
 	echo "	include_once 'GenericoDAO.php';" >> ${NOMBRE_DAO}
 	echo "	class $2DAO extends GenericoDAO{" >> ${NOMBRE_DAO}
@@ -34,7 +34,8 @@ if [ $1 == "DAO" ] && [ $2 ] ; then
 	echo "		//funciones" >> ${NOMBRE_DAO}
 	echo "	}" >> ${NOMBRE_DAO}
 	echo "?>" >> ${NOMBRE_DAO}
-
+	#------------------------------------------------------------------------
+	
 	#muestra el contenido de la carpeta
 	ls -l
 	#notifica que el archivo ha sido creado
