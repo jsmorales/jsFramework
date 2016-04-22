@@ -141,13 +141,15 @@ class UsuariosController {
 		
 		//print_r($matriz);
 		
+		/*
+		Asignacion de valores desde la base de datos segun sean los campos-------------------------
+		*/
 		$id=$matriz[0]['pkID'];
 		$alias=$matriz[0]['alias'];
-		$nombre=$matriz[0]['nombre'];
-		$apellidos=$matriz[0]['apellido'];
+		$nombre=$matriz[0]['nombres'];
+		$apellidos=$matriz[0]['apellidos'];
 		//$num_cc=$matriz[0]['numero_cc'];
-		$tipo=$matriz[0]['t_usuario'];		
-
+		$tipo=$matriz[0]['t_usuario'];
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		if (($id!="") and ($nombre!="")){
 

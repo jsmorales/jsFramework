@@ -14,16 +14,16 @@ Nombre del directorio raíz
 ---------------------------------------------------------------------------------------------
 */
 //nombre directorio raiz 
-$directorio_raiz = 'lunel_ie_manager';
+$directorio_raiz = '';
 //------------------------------------------------------------------------------------------- 	
 
 /*
 Conexion Base de datos-----------------------------------------------------------------------
 */
-$dbconection="brick";
-$userconection="root";
-$passconection="Lunel2016";
-$hostconection="localhost";
+$dbconection="";
+$userconection="";
+$passconection="";
+$hostconection="";
 //-------------------------------------------------------------------------------------------
 
 /*
@@ -32,7 +32,7 @@ Nombre de las cookies para la autenticación de la aplicación
 ---------------------------------------------------------------------------------------------
 */
 //servidor apache 
-$NomCookiesApp = 'log_lunelAdmin';
+$NomCookiesApp = 'log_jsFramework';
 //-------------------------------------------------------------------------------------------
 
 /*

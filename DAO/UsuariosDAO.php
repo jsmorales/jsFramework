@@ -1,6 +1,6 @@
 <?php
 
-include_once 'GenericoDAO.php';
+include_once 'genericoDAO.php';
 
 /**
  * Clase que maneja todas las consultas que tienen que ver con los usuarios

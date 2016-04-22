@@ -1,3 +1,7 @@
+<?php 
+    include_once("../controller/UsuariosController.php");
+    $inst = new UsuariosController();
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,26 +43,37 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Nombre App Log In</h3>
+                        <h3 class="panel-title">Nombre App Registro</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="../controller/login_autentica.php" method="POST">
+                        <form role="form" id="form_registro">
                             <fieldset>
                                 <div class="form-group">
-                                    <input id="username" name="username" class="form-control" placeholder="Usuario" type="text" autofocus>
+                                    <input id="alias" name="alias" class="form-control" placeholder="Usuario" type="text" autofocus>
+                                </div>
+                                <div class="form-group" id="div_pass">
+                                    <input id="pass" name="pass" class="form-control" placeholder="Contraseña" type="password" value="">
+                                </div>
+                                <!--<div class="form-group">
+                                     crear a partir de js para que no intervenga con el form 
+                                    <input id="password-conf" name="password-conf" class="form-control" placeholder="Confirmar Contraseña" type="password" value="">
+                                </div>-->
+                                <div class="form-group">
+                                    <input id="nombre" name="nombre" class="form-control" placeholder="Nombre" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" name="password" class="form-control" placeholder="Contraseña" type="password" value="">
+                                    <input id="apellido" name="apellido" class="form-control" placeholder="Apellido" type="text">
                                 </div>
-                                
-                                <!-- Change this to a button or input when using this as a form --> 
-                                <button id="btn_login" class="btn btn-lg btn-success btn-block">Ingresar</button>                               
-                            </fieldset>
-                            <div class="form-group text-center">
-                                <br>
-                                <a href="registro.php">Registrarse <span class="glyphicon glyphicon-log-in"></span> </a>
-                            </div>
+                                <div class="form-group">
+                                    <select id="fkID_tipo" name="fkID_tipo" class="form-control">
+                                        <option value=""></option>
+                                        <?php $inst->getTipoUsuarios(); ?>
+                                    </select>
+                                </div>                                                            
+                            </fieldset>                           
                         </form>
+                        <!-- Change this to a button or input when using this as a form --> 
+                        <button id="btn_register" data-action="crear" class="btn btn-lg btn-success btn-block">Registrarme</button>
                     </div>
                 </div>
             </div>
@@ -76,6 +91,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script src="../js/plugins/validav1/valida_p_v1.js"></script>
+
+    <script src="../js/scripts_cont/cont_registro.js"></script>
 
 </body>
 

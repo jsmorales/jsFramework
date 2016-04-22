@@ -4,12 +4,12 @@
     ----------------------------------------------------------------------------------------
     Nombre de las cookies que viene del archivo de datos, según sea el nombre de la app.
     */
-    include_once '../conexion/datos.php';
+    include('../conexion/datos.php');
     //--------------------------------------------------------------------------------------
-
+    
     $nombre = $_COOKIE[$NomCookiesApp."_nombre"];
     $alias = $_COOKIE[$NomCookiesApp."_alias"];
-    $tipo = $_COOKIE[$NomCookiesApp."_tipo"];
+    $tipo = $_COOKIE[$NomCookiesApp."_tipo"];    
  ?>
       <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Lunel-IE Manager</a>
+                <a class="navbar-brand" href="index.php">Nombre App</a>
             </div>
             <!-- /.navbar-header -->
 
