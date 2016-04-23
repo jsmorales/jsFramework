@@ -1,6 +1,6 @@
 <?php 
 
-	include_once 'GenericoDAO.php';
+	include_once 'genericoDAO.php';
 
 	/**
 	* Esta clase esta pensada en pagina principales en la que sea necesario

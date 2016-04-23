@@ -2,6 +2,11 @@
 
 include_once '../conexion/conexion.php';
 
+/*
+Tarea:
+trabajar en la optimizacion de esta clase para que no se repita tanto
+la intacia de la clase conexion en cada uno de las funciones.
+*/
 
 class GenericoDAO {
     
