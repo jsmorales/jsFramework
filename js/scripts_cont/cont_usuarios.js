@@ -6,7 +6,7 @@ $(function(){
 	var objt_f_usuario = {};
 	//variable de accion del boton del formulario
 	var action = "";
-	  //variable para el id del registro
+	//variable para el id del registro
 	var id_usuario = "";
 
 	var pass = "";
@@ -289,10 +289,8 @@ $(function(){
 	$("[name*='elimina_usuario']").click(function(event) {
 	    /* Act on the event */
 	    id_usuario = $(this).attr('data-id-usuario');
-
 	    elimina_usuario(id_usuario);
-
-	  });	  
+	});	  
 
   	//---------------------------------------------------------
   	//ejecucion cambiar de pass
