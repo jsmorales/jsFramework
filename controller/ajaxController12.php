@@ -9,7 +9,7 @@
 	
 	header('content-type: aplication/json; charset=utf-8');//header para json	
 	
-	include('../DAO/GenericoDAO.php');
+	include('../DAO/genericoDAO.php');
 
 	include('helper_controller/crea_sql.php');
 

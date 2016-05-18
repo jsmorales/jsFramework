@@ -69,8 +69,8 @@
         <!-- /form modal contenido-->
       </div>
       <div class="modal-footer">        
-        <button id="btn_actionUsuario" type="button" class="btn btn-primary" data-action="-">
-            <span id="lbl_btn_actionUsuario"></span>
+        <button id="btn_actionusuario" type="button" class="btn btn-primary" data-action="-">
+            <span id="lbl_btn_actionusuario"></span>
         </button>
       </div>
     </div>

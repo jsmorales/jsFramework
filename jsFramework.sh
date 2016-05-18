@@ -11,6 +11,13 @@
 #set ov toaster punto com
 #echo "todos después de set : $*"
 
+#---------------------------------------------------------------------------
+#funciones 
+
+#crear_DAO(){}
+
+#---------------------------------------------------------------------------
+
 #valida que lleve el tipo y el nombre
 if [ $1 == "DAO" ] && [ $2 ] ; then
 	#statements

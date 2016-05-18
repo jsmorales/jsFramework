@@ -18,10 +18,7 @@
                     <!-- DataTables JavaScript -->
                     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
                     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-                    <script src="../bower_components/datatables/data_tabla.js"></script>
-                    
-                    <!-- plugin para validar -->
-                    <script src="../js/plugins/validav1/valida_p_v1.js"></script>
+                    <script src="../bower_components/datatables/data_tabla.js"></script>                                    
 
                     <!-- jquery ui widget-->
                     <script src="../js/jquery.ui.widget.js"></script>
@@ -41,6 +38,10 @@
                     
                     <script src="../js/plugins/sesion_plugin/timer.jquery.js"></script>
                     <script src="../js/plugins/sesion_plugin/sesion_plugin.js"></script>
+                    
+                    <!-- Plugins creados valida_p_v1 y jquery_controller.js -->
+                    <script src="../bower_components/valida_p.js/js/valida_p_v1.js"></script>
+                    <script src="../bower_components/jquery_controller.js/jquery_controller.js"></script>
 
                     <!-- Custom Theme JavaScript -->
                     <script src="../dist/js/sb-admin-2.js"></script>';            

@@ -14,16 +14,16 @@ Nombre del directorio raíz
 ---------------------------------------------------------------------------------------------
 */
 //nombre directorio raiz 
-$directorio_raiz = '';
+$directorio_raiz = 'jsFramework';
 //------------------------------------------------------------------------------------------- 	
 
 /*
 Conexion Base de datos-----------------------------------------------------------------------
 */
-$dbconection="";
-$userconection="";
-$passconection="";
-$hostconection="";
+$dbconection="lunelAdmin";
+$userconection="root";
+$passconection="Lunel2016";
+$hostconection="localhost";
 //-------------------------------------------------------------------------------------------
 
 /*

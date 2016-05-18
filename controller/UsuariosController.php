@@ -146,8 +146,8 @@ class UsuariosController {
 		*/
 		$id=$matriz[0]['pkID'];
 		$alias=$matriz[0]['alias'];
-		$nombre=$matriz[0]['nombres'];
-		$apellidos=$matriz[0]['apellidos'];
+		$nombre=$matriz[0]['nombre'];
+		$apellidos=$matriz[0]['apellido'];
 		//$num_cc=$matriz[0]['numero_cc'];
 		$tipo=$matriz[0]['t_usuario'];
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
