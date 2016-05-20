@@ -2,7 +2,7 @@
 
 	//dependencias: jquery.js y valida_p_v1.js
  
-    $.fn.jquery_controller = function(nom_modulo,tipo,nom_tabla,tipo_load) {
+    $.fn.jquery_controller = function(nom_modulo,tipo,nom_tabla,upload,tipo_load) {
         
         //this.css( "color", "green" );
         //return this;
@@ -11,6 +11,7 @@
         var action = '';
         var objt_f = '';
         var id = '';
+        var subida = upload;
 
         //-------------------------------------------------------------------------------
 
@@ -49,7 +50,15 @@
 		          //---------------------
 		          console.log(data);
 		          alert(data[0].mensaje);
-		          location.reload();          
+		          
+		          if (subida == true) {
+		          	//si el paramatro upload es true
+		          	subida_archivo();
+		          	location.reload();
+		          } else{
+		          	location.reload();
+		          };
+		                    
 		        })
 		        .fail(function(data) {
 		          console.log(data);
@@ -86,7 +95,14 @@
 		            //---------------------
 		            console.log(data.mensaje.mensaje);
 		            alert(data.mensaje.mensaje);
-		            location.reload();
+		            
+		            if (subida == true) {
+			          	//si el paramatro upload es true
+			          	subida_archivo();
+			          	location.reload();
+			          } else{
+			          	location.reload();
+			          };
 		        })
 		        .fail(function() {
 		            console.log("error");
@@ -182,6 +198,46 @@
 		    }
 	    };
 	    //cierra eliminar
+	    
+
+	    function subida_archivo(){
+
+	           //---------------------------------------------------------------------------------------
+	           //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
+	           var formData = new FormData($("#form_"+nom_modulo)[0]);
+	           //la ruta del php que ejecuta ajax
+	           var ruta = "../subida_archivo/ctrl_sub_objt.php";
+
+	           //hacemos la petición ajax
+	            $.ajax({
+	                url: ruta,
+	                type: 'POST',
+	                // Form data
+	                //datos del formulario
+	                data: formData,
+	                //necesario para subir archivos via ajax
+	                cache: false,
+	                contentType: false,
+	                processData: false,
+	                //mientras enviamos el archivo
+	                beforeSend: function(){
+	                    console.log("Subiendo archivo, por favor espere...");
+	                },
+	                //una vez finalizado correctamente
+	                success: function(data){
+	                  console.log(data);
+	                  //alert(data.estado);
+	                  //$("#not_img").removeAttr('hidden');
+	                  //$("#not_img").html(' <br /> <br /> <div class="'+data.clase+'" role="alert">'+data.estado+'</div>');
+
+	                },
+	                //si ha ocurrido un error
+	                error: function(){
+	                    console.log("Ha ocurrido un error.");
+	                }
+	            });
+			//---------------------------------------------------------------------------------------
+	    };//cierra función subida*/
 
         //-------------------------------------------------------------------------------
         //evaluacion de casos en los que actua el boton que se ejecute

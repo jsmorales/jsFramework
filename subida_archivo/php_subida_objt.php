@@ -80,14 +80,14 @@
 		//-------------------------------------------
 		//validar que el archivo sea una imagen menor de 1MB
         private function valida_image(){
-
-        	if ($this->tipo != "image/jpg" && $this->tipo != "image/png" && $this->tipo != "image/jpeg" && $this->tipo != "image/gif" && $this->tipo != "application/pdf" && $this->tipo != "application/msword" && $this->tipo != "application/vnd.oasis.opendocument.text" && $this->tipo != "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        	//application/vnd.ms-excel
+        	if ($this->tipo != "image/jpg" && $this->tipo != "image/png" && $this->tipo != "image/jpeg" && $this->tipo != "image/gif" && $this->tipo != "application/pdf" && $this->tipo != "application/msword" && $this->tipo != "application/vnd.oasis.opendocument.text" && $this->tipo != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && $this->tipo != "application/vnd.ms-excel")
 		    {
 		      //retorna mensaje de error
 		      //echo"ERROR!!!!...El tipo de archivo no es una imagen."; application/msword
 		    	return false;
 
-		    }else if($this->tamano > (1024*1024)*5 )#si es mayor que una mega 1MB
+		    }else if($this->tamano > (1024*1024)*20 )#si es mayor que una mega 1MB
 		    {
 		      //retorna mensaje de error
 		      //echo"ERROR!!!!...El tamaño del archivo es mayor a 1MB.";

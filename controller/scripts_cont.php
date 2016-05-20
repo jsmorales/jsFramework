@@ -37,7 +37,9 @@
                     <script src="../js/plugins/mask/jquery.mask.js"></script>
                     
                     <script src="../js/plugins/sesion_plugin/timer.jquery.js"></script>
-                    <script src="../js/plugins/sesion_plugin/sesion_plugin.js"></script>
+                    <!--<script src="../js/plugins/sesion_plugin/sesion_plugin.js"></script>-->
+
+                    <script src="../js/validaArchivoPlugin.js"></script>
                     
                     <!-- Plugins creados valida_p_v1 y jquery_controller.js -->
                     <script src="../bower_components/valida_p.js/js/valida_p_v1.js"></script>

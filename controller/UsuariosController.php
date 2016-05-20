@@ -155,10 +155,10 @@ class UsuariosController {
 
 			//El nombre de la cookie varia según el nombre de la aplicacion para no tener problemas
 			//a la hora de la creacion de las mismas.
-			setcookie($NomCookiesApp."_id", $id, time() + 3600, "/");			
-			setcookie($NomCookiesApp."_alias", $alias, time() + 3600, "/");
-			setcookie($NomCookiesApp."_nombre", $nombre." ".$apellidos, time() + 3600, "/");			
-			setcookie($NomCookiesApp."_tipo", $tipo, time() + 3600, "/");				
+			setcookie($NomCookiesApp."_id", $id, time() + 3600*24, "/");			
+			setcookie($NomCookiesApp."_alias", $alias, time() + 3600*24, "/");
+			setcookie($NomCookiesApp."_nombre", $nombre." ".$apellidos, time() + 3600*24, "/");			
+			setcookie($NomCookiesApp."_tipo", $tipo, time() + 3600*24, "/");				
 
 			//echo "nombre desde la cookie:".$_COOKIE["log_usuario_nombre"];
 

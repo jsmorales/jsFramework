@@ -114,13 +114,18 @@ $(function(){
 
   	//---------------------------------------------------------
   	//pruebas de jquery_controller.js / aca se llama inserta_p.js
-  	//jquery_controller('nombre_del_modulo','tipo','nombre de la tabla en BD','tipo de carga 1,2')
+  	//.jquery_controller('nombre_del_modulo','tipo','nombre de la tabla en BD','upload true/false','tipo de carga 1,2')
 
-  	$("#btn_nuevoUsuario").jquery_controller('usuario','nuevo','','');
+  	$("#btn_nuevoUsuario").jquery_controller('usuario','nuevo','',false,'');
 
-  	$("#btn_actionusuario").jquery_controller('usuario','inserta/edita','usuarios','');
+  	$("#btn_actionusuario").jquery_controller('usuario','inserta/edita','usuarios',false,'');
 
-  	$("[name*='edita_usuario']").jquery_controller('usuario','carga_editar','usuarios',1);
+  	$("[name*='edita_usuario']").jquery_controller('usuario','carga_editar','usuarios',false,1);
 
-  	$("[name*='elimina_usuario']").jquery_controller('usuario','eliminar','usuarios','');
+  	$("[name*='elimina_usuario']").jquery_controller('usuario','eliminar','usuarios',false,'');
+
+  	//prueba plugin validaArchivoPlugin.js
+  	//.validaArchivo('nombre del tipo file','nombre del modulo','nombre del text donde queda el nombre del archivo');
+
+  	$("#archivo").validaArchivo('archivo','usuario','url_archivo');
 });

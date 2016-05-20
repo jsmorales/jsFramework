@@ -1,6 +1,7 @@
 <?php 
 
   include("../controller/UsuariosController.php");
+  include("../conexion/datos.php");
   $usuariosInst = new usuariosController();
  ?>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
@@ -63,8 +64,16 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">Archivo</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="archivo" name="archivo">
+                        </div>
+                    </div> 
+                  <input type="text" name="url_archivo" id="url_archivo" value="nombre archivo">
 
                 </form>
+
 
         <!-- /form modal contenido-->
       </div>
@@ -111,7 +120,7 @@
             <tbody>
                 <?php
                     //print_r($_COOKIE); 
-                    $usuariosInst->getTablaUsuarios($_COOKIE["log_lunelAdmin_tipo"]);                           
+                    $usuariosInst->getTablaUsuarios($_COOKIE[$NomCookiesApp."_tipo"]);                           
                  ?>
             </tbody>
         </table>
