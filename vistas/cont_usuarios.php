@@ -1,8 +1,13 @@
 <?php 
 
   include("../controller/UsuariosController.php");
-  include("../conexion/datos.php");
   $usuariosInst = new usuariosController();
+
+  /**/
+  $arrPermisos = $usuariosInst->permisosUsuario(13,$_COOKIE["log_lunelAdmin_IDtipo"]);
+
+  $crea = $arrPermisos[0]["crear"];
+
  ?>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 <!-- Form usuarios -->
@@ -64,22 +69,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="" class="col-sm-2 control-label">Archivo</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control" id="archivo" name="archivo">
-                        </div>
-                    </div> 
-                  <input type="text" name="url_archivo" id="url_archivo" value="nombre archivo">
 
                 </form>
-
 
         <!-- /form modal contenido-->
       </div>
       <div class="modal-footer">        
-        <button id="btn_actionusuario" type="button" class="btn btn-primary" data-action="-">
-            <span id="lbl_btn_actionusuario"></span>
+        <button id="btn_actionUsuario" type="button" class="btn btn-primary" data-action="-">
+            <span id="lbl_btn_actionUsuario"></span>
         </button>
       </div>
     </div>
@@ -102,35 +99,62 @@
 
   <div class="row">
 
-  <?php //echo 'el perfil es '.$_COOKIE["log_lunelAdmin_tipo"];; ?>
+    <?php //echo 'el perfil es '.$_COOKIE["log_lunelAdmin_tipo"];; ?>
+      
+      <div class="col-lg-12">
+        
+        <div class="panel panel-default">
 
-    <div class="dataTable_wrapper">
-        <table class="table table-striped table-bordered table-hover" id="tbl_proceso">
-            <thead>
-                <tr>
-                    <th>ID usuario</th>
-                    <th>Alias</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>                                                            
-                    <th>Tipo</th>
-                    <th>Opciones</th>                                               
-                </tr>
-            </thead>
+          <div class="panel-heading">
 
-            <tbody>
-                <?php
-                    //print_r($_COOKIE); 
-                    $usuariosInst->getTablaUsuarios($_COOKIE[$NomCookiesApp."_tipo"]);                           
-                 ?>
-            </tbody>
-        </table>
+            <div class="row">
+              <div class="col-md-6">
+                  Registro de Usuarios Lunel-IE
+              </div>
+              <div class="col-md-6 text-right">
+                 <button id="btn_nuevoUsuario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#frm_modal_usuario" <?php if ($crea != 1){echo 'disabled="disabled"';} ?> ><span class="glyphicon glyphicon-plus"></span> Nuevo usuario</button>  
+              </div>
+            </div>
+
+          </div>
+          <!-- /.panel-heading -->
+        
+        <div class="panel-body">
+
+          <div class="dataTable_wrapper">
+              <table class="table table-striped table-bordered table-hover" id="tbl_usuario">
+                  <thead>
+                      <tr>
+                          <th>ID usuario</th>
+                          <th>Alias</th>
+                          <th>Nombres</th>
+                          <th>Apellidos</th>                                                            
+                          <th>Tipo</th>
+                          <th>Opciones</th>                                               
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      <?php
+                          //print_r($_COOKIE); 
+                          $usuariosInst->getTablaUsuarios($_COOKIE["log_lunelAdmin_tipo"]);                           
+                       ?>
+                  </tbody>
+              </table>
+          </div>
+          <!-- /.table-responsive -->
+        
+        </div>
+        <!-- /.panel-body -->
+
+        </div>
+        <!-- /.panel -->
+      
+      </div>
+      <!-- /.col-lg-12 -->
+    
     </div>
-    <!-- /.table-responsive -->
-
-    <button id="btn_nuevoUsuario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#frm_modal_usuario"><span class="glyphicon glyphicon-plus"></span> Nuevo usuario</button>            
-     
-  </div>
-  <!-- /.row -->
+    <!-- /.row -->
                 
 </div>
 <!-- /#page-wrapper -->

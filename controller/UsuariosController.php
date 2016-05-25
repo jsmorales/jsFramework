@@ -34,6 +34,10 @@ class UsuariosController {
 
     //Funciones-----------------------------------------------------------------------
 
+    public function permisosUsuario($fkID_modulo,$fkID_tipo_usuario) {
+        return $this->UsuariosDAO->permisos($fkID_modulo,$fkID_tipo_usuario);
+    }
+    
     public function getUsuarios() {
         return $this->UsuariosDAO->getUsuarios();
     }
@@ -56,8 +60,15 @@ class UsuariosController {
     		//get de los usuarios
 	    	$usuarios = $this->UsuariosDAO->getUsuarios();
 
+	    	//permisos-------------------------------------------------------------------------
+    		$arrPermisos = $this->permisosUsuario(13,$_COOKIE["log_lunelAdmin_IDtipo"]);
+    		$edita = $arrPermisos[0]["editar"];
+    		$elimina = $arrPermisos[0]["eliminar"];
+    		$consulta = $arrPermisos[0]["consultar"];
+    		//---------------------------------------------------------------------------------    
+
 	    	//valida si hay usuarioes
-	    	if($usuarios){
+	    	if( ($usuarios) && ($consulta==1) ){
 
 	    		for($a=0;$a<sizeof($usuarios);$a++){
 
@@ -76,26 +87,47 @@ class UsuariosController {
 	                             <td>'.$apellidos.'</td>                             
 	                             <td>'.$nom_tipo.'</td>
 		                         <td>
-		                             <button id="btn_editar" name="edita_usuario" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_usuario" data-id-usuario = "'.$id.'" ><span class="glyphicon glyphicon-pencil"></span></button>		                             
-		                             <button id="btn_eliminar" name="elimina_usuario" type="button" class="btn btn-danger" data-id-usuario = "'.$id.'" ><span class="glyphicon glyphicon-remove"></span></button>
+		                             <button id="btn_editar" name="edita_usuario" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_usuario" data-id-usuario = "'.$id.'" '; if ($edita != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-pencil"></span></button>		                             
+		                             <button id="btn_eliminar" name="elimina_usuario" type="button" class="btn btn-danger" data-id-usuario = "'.$id.'" ';  if ($elimina != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-remove"></span></button>
 		                         </td>
 		                     </tr>';
 	            };
 
 
-	    	}else{
+	    	}elseif(($usuarios) && ($consulta==0)){
+
+             echo "<tr>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>		                              		                                          
+		           </tr>
+		           <h3>En este momento no tiene permiso de consulta para Usuarios.</h3>";
+            }else{
 
 	         echo "<tr>
 		               <td></td>
 		               <td></td>
+		               <td></td>
+		               <td></td>
+		               <td></td>
 		               <td></td>		               		                                            
 		           </tr>
-		           <h3>En este momento no hay usuarios creados.</h3>";
+		           <h3>En este momento no hay Usuarios creados.</h3>";
 	        };
 
     	} else {
     		# code...
     		$usuario = $this->UsuariosDAO->getUsuarioId($_COOKIE["log_lunelAdmin_id"]);
+
+    		//permisos-------------------------------------------------------------------------
+    		$arrPermisos = $this->permisosUsuario(13,$_COOKIE["log_lunelAdmin_IDtipo"]);
+    		$edita = $arrPermisos[0]["editar"];
+    		$elimina = $arrPermisos[0]["eliminar"];
+    		$consulta = $arrPermisos[0]["consultar"];
+    		//---------------------------------------------------------------------------------
 
     		for($a=0;$a<sizeof($usuario);$a++){
 
@@ -114,8 +146,8 @@ class UsuariosController {
                              <td>'.$apellidos.'</td>                             
                              <td>'.$nom_tipo.'</td>
 	                         <td>
-	                             <button id="btn_editar" name="edita_usuario" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_usuario" data-id-usuario = "'.$id.'" ><span class="glyphicon glyphicon-pencil"></span></button>		                             
-	                             <button id="btn_eliminar" name="elimina_usuario" type="button" class="btn btn-danger" data-id-usuario = "'.$id.'" ><span class="glyphicon glyphicon-remove"></span></button>
+	                             <button id="btn_editar" name="edita_usuario" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_usuario" data-id-usuario = "'.$id.'" '; if ($edita != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-pencil"></span></button>		                             
+	                             <button id="btn_eliminar" name="elimina_usuario" type="button" class="btn btn-danger" data-id-usuario = "'.$id.'" '; if ($elimina != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-remove"></span></button>
 	                         </td>
 	                     </tr>';
             };

@@ -2,16 +2,15 @@
 
 	include("../controller/muestra_pagina.php");
 
-	$muestra_usuarios = new mostrar();
+	$muestra_roles = new mostrar();
 
 	//---------------------------------------------------------
-	$pagina = "cont_usuarios.php";
-	$scripts = array('cont_usuarios.js');
+	$pagina = "cont_roles.php";
+	$scripts = array('cont_roles.js');
 	//$perfiles_in = array('Administrador','jefe_personal');
-	//$perfiles_in = array('Administrador');
-	$id_modulo = 13;
+	$id_modulo = 14;
 	//---------------------------------------------------------
 
-	$muestra_usuarios->mostrar_pagina_scripts($pagina,$scripts,$id_modulo);
+	$muestra_roles->mostrar_pagina_scripts($pagina,$scripts,$id_modulo);
 
  ?>

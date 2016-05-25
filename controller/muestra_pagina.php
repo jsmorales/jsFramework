@@ -7,6 +7,7 @@
 include("valida.php");
 include "scripts_cont.php";
 
+
     class mostrar extends valida {
 
         public $script;
@@ -75,18 +76,20 @@ include "scripts_cont.php";
             
         }
         //-----------------------------------------
-        public function mostrar_pagina_scripts($pagina,$arr_script,$perfiles_in){
+        public function mostrar_pagina_scripts($pagina,$arr_script,$id_modulo){
            
 
             $valores_login = $this->valida_vals();
 
             $perfil_actual = $this->valida_perfil();
 
+            $id_perfil_actual = $this->getIDtipo();
+
             //echo "validando".$perfiles_in." y ".$perfil_actual;
 
-            $valida_entrada = $this->valida_entrada_perfil($perfiles_in,$perfil_actual);
+            $valida_entrada = $this->valida_entrada_perfil($id_modulo,$id_perfil_actual);
 
-            if( ($valores_login == true) && ($valida_entrada === "true") ){
+            if( ($valores_login == true) && ($valida_entrada === true) ){
 
                 //echo "el perfil de usuario es: ".$perfil_actual;
 

@@ -1,16 +1,161 @@
 $(function(){
-	//console.log('hola desde usuarios');
+	console.log('hola desde usuarios');
 
 	//---------------------------------------------------------
 	//variable para el objeto del formulario
 	var objt_f_usuario = {};
 	//variable de accion del boton del formulario
 	var action = "";
-	//variable para el id del registro
+	  //variable para el id del registro
 	var id_usuario = "";
 
 	var pass = "";
 	//---------------------------------------------------------
+
+	function valida_action(action){
+
+  		if(action==="crear"){
+    		crea_usuario();    		
+  		}else if(action==="editar"){
+    		edita_usuario();
+  		};
+	};
+
+
+	function crea_usuario(){
+
+	      //--------------------------------------
+	      //crea el objeto formulario serializado
+	      objt_f_usuario = $("#form_usuario").valida();
+	      //email = $("#email").val(); && (validarEmail(email))
+	      console.log(objt_f_usuario);
+	      //console.log(objt_f_adminPublicidad.srlz);
+	      //--------------------------------------
+	      /**/
+	      if( objt_f_usuario.estado == true ){
+
+	        $.ajax({
+	          url: "../controller/ajaxController12.php",
+	          data: objt_f_usuario.srlz+"&tipo=inserta_registro&nom_tabla=usuarios",
+	        })
+	        .done(function(data) {	          
+	          //---------------------
+	          console.log(data);
+	          alert(data[0].mensaje);
+	          location.reload();          
+	        })
+	        .fail(function(data) {
+	          console.log(data);
+	          //alert(data[0].mensaje);          
+	        })
+	        .always(function() {
+	          console.log("complete");
+	        });
+
+	      }else{
+	        alert("El formulario no está totalmente diligenciado, revíselo e inténtelo de nuevo.");
+	      };
+
+	    };
+	  //cierra crea
+
+	function edita_usuario(){
+
+	    //--------------------------------------
+	    //crea el objeto formulario serializado
+	    objt_f_usuario = $("#form_usuario").valida();
+	    //email = $("#email").val(); ) && (validarEmail(email)) 
+	    //--------------------------------------
+
+	    if( objt_f_usuario.estado == true ){
+
+	        console.log(objt_f_usuario.srlz);
+
+	        $.ajax({
+	            url: '../controller/ajaxController12.php',
+	            data: objt_f_usuario.srlz+"&tipo=actualizar&nom_tabla=usuarios",
+	        })
+	        .done(function(data) {	           
+	            //---------------------
+	            console.log(data.mensaje.mensaje);
+	            alert(data.mensaje.mensaje);
+	            location.reload();
+	        })
+	        .fail(function() {
+	            console.log("error");
+	        })
+	        .always(function() {
+	            console.log("complete");
+	        });
+
+	    }else{
+	        alert("Faltan "+Object.keys(objt_f_usuario.objt).length+" campos por llenar.");
+	    }
+	    //------------------------------------------------------
+	};
+    //cierra funcion
+
+    function elimina_usuario(id_usuario){
+
+	    console.log('Eliminar el usuario: '+id_usuario);
+
+	    var confirma = confirm("En realidad quiere eliminar este usuario?");
+
+	    console.log(confirma);
+	    /**/
+	    if(confirma == true){
+	      //si confirma es true ejecuta ajax
+	      $.ajax({
+	            url: '../controller/ajaxController12.php',
+	            data: "pkID="+id_usuario+"&tipo=eliminar&nom_tabla=usuarios",
+	        })
+	        .done(function(data) {            
+	            //---------------------
+	            console.log(data);
+
+	            alert(data.mensaje.mensaje);
+	            
+	            location.reload();
+	        })
+	        .fail(function() {
+	            console.log("error");
+	        })
+	        .always(function() {
+	            console.log("complete");
+	        });
+	    }else{
+	      //no hace nada
+	    }
+    };
+    //cierra funcion eliminar usuario
+
+	function carga_usuario(id_usuario){
+
+	    console.log("Carga el usuario "+id_usuario);
+
+	    $.ajax({
+	        url: '../controller/ajaxController12.php',
+	        data: "pkID="+id_usuario+"&tipo=consultar&nom_tabla=usuarios",
+	    })
+	    .done(function(data) {
+	    	/**/
+	        $.each(data.mensaje[0], function( key, value ) {
+	          console.log(key+"--"+value);
+	          $("#"+key).val(value);
+	        });
+
+	        crea_cambia_pass();
+	    })
+	    .fail(function() {
+	        console.log("error");
+	    })
+	    .always(function() {
+	        console.log("complete");
+	    });
+
+    };
+    //cierra carga_usuario
+
 
     //funciones cambiar de pass---------------------------------------------------------------------
 
@@ -33,7 +178,6 @@ $(function(){
 	  		/* Act on the event */
 	  		$("#btn_actionUsuario").attr('class', 'hidden');
 	  		pass = $("#pass").val();
-	  		id_usuario = $("#pkID").val();
 
 	  		var action_pass = $(this).attr('data-action');
 	  		valida_action_pass(action_pass);
@@ -97,35 +241,59 @@ $(function(){
 	/*
 	Botón que carga el formulario para insertar
 	*/
-	$("#btn_nuevoUsuario").click(function(){	  	
+	$("#btn_nuevoUsuario").click(function(){
+
+	  	$("#lbl_form_usuario").html("Nuevo Registro usuario");
+	  	$("#lbl_btn_actionUsuario").html("Guardar<span class='glyphicon glyphicon-chevron-right'></span>");
+	  	$("#btn_actionUsuario").attr("data-action","crear");
+
+	  	$("#form_usuario")[0].reset();
+	  	
 	  	destruye_cambia_pass();	      	   
 	});
 
 	/*
     Botón que carga el formulario para editar
     */  
-    $("[name*='edita_usuario']").click(function(event) {    	
-        crea_cambia_pass();       
+    $("[name*='edita_usuario']").click(function(event) {
+
+        $("#lbl_form_usuario").html("Editar Registro usuario");
+        $("#lbl_btn_actionUsuario").html("Guardar Cambios<span class='glyphicon glyphicon-chevron-right'></span>");
+        $("#btn_actionUsuario").attr("data-action","editar");
+
+        $("#form_usuario")[0].reset();
+	      
+        id_usuario = $(this).attr('data-id-usuario');
+	      
+        carga_usuario(id_usuario);
+
+        crea_cambia_pass();
+        //carga_usuarioes(id_usuario);
+        
     });
-    
+
+    /*
+	Botón de accion de formulario
+	*/
+	$("#btn_actionUsuario").click(function(){
+
+      /**/
+	  	action = $(this).attr("data-action");
+
+	  	valida_action(action);
+
+	  	console.log("accion a ejecutar: "+action);     
+
+	});
+
+	$("[name*='elimina_usuario']").click(function(event) {
+	    /* Act on the event */
+	    id_usuario = $(this).attr('data-id-usuario');
+
+	    elimina_usuario(id_usuario);
+
+	  });	  
 
   	//---------------------------------------------------------
   	//ejecucion cambiar de pass
-
-  	//---------------------------------------------------------
-  	//pruebas de jquery_controller.js / aca se llama inserta_p.js
-  	//.jquery_controller('nombre_del_modulo','tipo','nombre de la tabla en BD','upload true/false','tipo de carga 1,2')
-
-  	$("#btn_nuevoUsuario").jquery_controller('usuario','nuevo','',false,'');
-
-  	$("#btn_actionusuario").jquery_controller('usuario','inserta/edita','usuarios',false,'');
-
-  	$("[name*='edita_usuario']").jquery_controller('usuario','carga_editar','usuarios',false,1);
-
-  	$("[name*='elimina_usuario']").jquery_controller('usuario','eliminar','usuarios',false,'');
-
-  	//prueba plugin validaArchivoPlugin.js
-  	//.validaArchivo('nombre del tipo file','nombre del modulo','nombre del text donde queda el nombre del archivo');
-
-  	$("#archivo").validaArchivo('archivo','usuario','url_archivo');
 });

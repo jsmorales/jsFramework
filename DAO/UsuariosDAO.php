@@ -1,6 +1,7 @@
 <?php
 
 include_once 'genericoDAO.php';
+include_once 'Permisos_DAO.php';
 
 /**
  * Clase que maneja todas las consultas que tienen que ver con los usuarios
@@ -12,6 +13,16 @@ class UsuariosDAO extends GenericoDAO{
      */
     public function __construct() {
         parent::__construct();
+    }
+
+    public function permisos($fkID_modulo,$fkID_tipo_usuario){
+
+      $this->permisos = new PermisosDAO();
+
+      $arrayPermisos = $this->permisos->getPermisosModulo_Tipo($fkID_modulo,$fkID_tipo_usuario);
+
+      return $arrayPermisos;
+
     }
 
     public function getUsuarios(){        

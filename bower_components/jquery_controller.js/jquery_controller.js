@@ -2,7 +2,7 @@
 
 	//dependencias: jquery.js y valida_p_v1.js
  
-    $.fn.jquery_controller = function(nom_modulo,tipo,nom_tabla,upload,tipo_load) {
+    $.fn.jquery_controller = function(nom_modulo,tipo,nom_tabla,upload,tipo_load,reload) {
         
         //this.css( "color", "green" );
         //return this;
@@ -12,6 +12,7 @@
         var objt_f = '';
         var id = '';
         var subida = upload;
+        var recarga = reload;
 
         //-------------------------------------------------------------------------------
 
@@ -44,7 +45,7 @@
 
 		        $.ajax({
 		          url: "../controller/ajaxController12.php",
-		          data: objt_f.srlz+"&tipo=inserta_registro&nom_tabla="+nom_tabla,
+		          data: objt_f.srlz+"&tipo=inserta&nom_tabla="+nom_tabla,
 		        })
 		        .done(function(data) {	          
 		          //---------------------
@@ -55,7 +56,7 @@
 		          	//si el paramatro upload es true
 		          	subida_archivo();
 		          	location.reload();
-		          } else{
+		          }else if (recarga == true) {
 		          	location.reload();
 		          };
 		                    
@@ -100,7 +101,7 @@
 			          	//si el paramatro upload es true
 			          	subida_archivo();
 			          	location.reload();
-			          } else{
+			          }else if (recarga == true) {
 			          	location.reload();
 			          };
 		        })
@@ -185,7 +186,9 @@
 
 		            alert(data.mensaje.mensaje);
 		            
-		            location.reload();
+		           	if (recarga == true) {
+			         	location.reload();
+			         };
 		        })
 		        .fail(function() {
 		            console.log("error");

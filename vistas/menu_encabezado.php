@@ -39,6 +39,7 @@
                             if ( $tipo == "Administrador" ) {
                                 # code...
                                 echo '<li><a href="usuarios.php"><i class="fa fa-user fa-fw"></i> <ins>Usuarios</ins></a>';
+                                echo '<li><a href="roles.php"><i class="fa fa-wrench fa-fw"></i> <ins>Roles</ins></a>';
                             }else{
                                 echo '<li><a href="usuarios.php"><i class="fa fa-user fa-fw"></i> <ins>Editar Perfil</ins></a>';
                             }

@@ -39,11 +39,12 @@
                     <script src="../js/plugins/sesion_plugin/timer.jquery.js"></script>
                     <!--<script src="../js/plugins/sesion_plugin/sesion_plugin.js"></script>-->
 
-                    <script src="../js/validaArchivoPlugin.js"></script>
                     
-                    <!-- Plugins creados valida_p_v1 y jquery_controller.js -->
+                    
+                    <!-- Plugins creados valida_p_v1,jquery_controller.js,validaArchivoPlugin.js -->
                     <script src="../bower_components/valida_p.js/js/valida_p_v1.js"></script>
                     <script src="../bower_components/jquery_controller.js/jquery_controller.js"></script>
+                    <script src="../bower_components/validaArchivoPlugin.js/validaArchivoPlugin.js"></script>
 
                     <!-- Custom Theme JavaScript -->
                     <script src="../dist/js/sb-admin-2.js"></script>';            
