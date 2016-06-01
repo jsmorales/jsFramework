@@ -33,12 +33,14 @@ error_reporting(0);
 			unset($_COOKIE[$NomCookiesApp."_alias"]);
 			//unset($_COOKIE[$NomCookiesApp."_num_cc"]);
 			unset($_COOKIE[$NomCookiesApp."_tipo"]);
+			unset($_COOKIE[$NomCookiesApp."_IDtipo"]);
 
 			setcookie($NomCookiesApp."_id", null, -1, '/');
 			setcookie($NomCookiesApp."_nombre", null, -1, '/');
 			setcookie($NomCookiesApp."_alias", null, -1, '/');
 			//setcookie($NomCookiesApp."_num_cc", null, -1, '/');
 			setcookie($NomCookiesApp."_tipo", null, -1, '/');
+			setcookie($NomCookiesApp."_IDtipo", null, -1, '/');
 
 		}
 

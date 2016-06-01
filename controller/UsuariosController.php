@@ -25,11 +25,18 @@ class UsuariosController {
     //ATRIBUTOS DE LA CLASE
 
     public $UsuariosDAO;
+    public $id_modulo;
+    public $NameCookieApp;
         
     //CONSTRUCTOR DE LA CLASE
 
     public function __construct() {
+    	
+    	include('../conexion/datos.php');
+
         $this->UsuariosDAO = new UsuariosDAO();
+        $this->id_modulo = 13;
+        $this->NameCookieApp = $NomCookiesApp;
     }
 
     //Funciones-----------------------------------------------------------------------
@@ -61,7 +68,7 @@ class UsuariosController {
 	    	$usuarios = $this->UsuariosDAO->getUsuarios();
 
 	    	//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisosUsuario(13,$_COOKIE["log_lunelAdmin_IDtipo"]);
+    		$arrPermisos = $this->permisosUsuario($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];
@@ -120,10 +127,11 @@ class UsuariosController {
 
     	} else {
     		# code...
-    		$usuario = $this->UsuariosDAO->getUsuarioId($_COOKIE["log_lunelAdmin_id"]);
+    		
+    		$usuario = $this->UsuariosDAO->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);
 
     		//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisosUsuario(13,$_COOKIE["log_lunelAdmin_IDtipo"]);
+    		$arrPermisos = $this->permisosUsuario($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];
@@ -156,22 +164,17 @@ class UsuariosController {
     	    	
     }
 	
-	public static function AutenticarUsuario(){
+	public function AutenticarUsuario(){
 
 		/*
-		----------------------------------------------------------------------------------------
-		Nombre de las cookies que viene del archivo de datos, según sea el nombre de la app.
-		*/
-		include_once '../conexion/datos.php';
+		----------------------------------------------------------------------------------------		
+		*/		
 		//--------------------------------------------------------------------------------------
 	
 		$Usr_Mail=$_POST['username'];
-		$Usr_Clave=$_POST['password'];
-		
+		$Usr_Clave=$_POST['password'];			
 				
-		$matriz=UsuariosDAO::getUsuariosLogin($Usr_Mail,$Usr_Clave);
-		
-		//print_r($matriz);
+		$matriz=UsuariosDAO::getUsuariosLogin($Usr_Mail,$Usr_Clave);		
 		
 		/*
 		Asignacion de valores desde la base de datos segun sean los campos-------------------------
@@ -182,17 +185,19 @@ class UsuariosController {
 		$apellidos=$matriz[0]['apellido'];
 		//$num_cc=$matriz[0]['numero_cc'];
 		$tipo=$matriz[0]['t_usuario'];
+		$id_tipo=$matriz[0]['fkID_tipo'];
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		if (($id!="") and ($nombre!="")){
 
 			//El nombre de la cookie varia según el nombre de la aplicacion para no tener problemas
 			//a la hora de la creacion de las mismas.
-			setcookie($NomCookiesApp."_id", $id, time() + 3600*24, "/");			
-			setcookie($NomCookiesApp."_alias", $alias, time() + 3600*24, "/");
-			setcookie($NomCookiesApp."_nombre", $nombre." ".$apellidos, time() + 3600*24, "/");			
-			setcookie($NomCookiesApp."_tipo", $tipo, time() + 3600*24, "/");				
+			setcookie($this->NameCookieApp."_id", $id, time() + 3600*24, "/");			
+			setcookie($this->NameCookieApp."_alias", $alias, time() + 3600*24, "/");
+			setcookie($this->NameCookieApp."_nombre", $nombre." ".$apellidos, time() + 3600*24, "/");			
+			setcookie($this->NameCookieApp."_tipo", $tipo, time() + 3600*24, "/");
+			setcookie($this->NameCookieApp."_IDtipo", $id_tipo, time() + 3600*24, "/");							
 
-			//echo "nombre desde la cookie:".$_COOKIE["log_usuario_nombre"];
+			//echo "nombre desde la cookie:".$_COOKIE[$this->NameCookieApp."_nombre"];
 
 			echo '<script language="JavaScript">
 					alert("Bienvenido '.$nombre.' '.$apellidos.'");					

@@ -14,8 +14,13 @@ include("../DAO/PermisosDAO.php");
 	    public $tipo;
 	    public $id_tipo;
 	    //-----------------------------------------
-	  
+	    public $nameCookieApp;	  
 	    //-----------------------------------------
+
+	    function __construct(){
+	    	include('../conexion/datos.php');
+	    	$this->nameCookieApp = $NomCookiesApp;
+	    }
 	    //funciones
 	    public function asigna_vals(){
 
@@ -29,10 +34,10 @@ include("../DAO/PermisosDAO.php");
 		        $this->id_tipo = "";
 
 	    	}else{
-		        $this->id = $_COOKIE["log_lunelAdmin_id"];
-		        $this->nombre = $_COOKIE["log_lunelAdmin_nombre"];
-		        $this->tipo = $_COOKIE["log_lunelAdmin_tipo"];
-		        $this->id_tipo = $_COOKIE["log_lunelAdmin_IDtipo"];
+		        $this->id = $_COOKIE[$this->nameCookieApp."_id"];
+		        $this->nombre = $_COOKIE[$this->nameCookieApp."_nombre"];
+		        $this->tipo = $_COOKIE[$this->nameCookieApp."_tipo"];
+		        $this->id_tipo = $_COOKIE[$this->nameCookieApp."_IDtipo"];
 	        }
 
 	    }
@@ -41,12 +46,9 @@ include("../DAO/PermisosDAO.php");
 
 	    	$this->asigna_vals();
 
-	        if($this->id == "" || $this->nombre == "" || $this->tipo == "" || $this->id_tipo == ""){
-	            //echo '<script language="JavaScript"> alert("Usuario no identificado, por favor identifíquese."); window.location = "index.php"; </script>';
+	        if($this->id == "" || $this->nombre == "" || $this->tipo == "" || $this->id_tipo == ""){	            
 	            return false;
-	        }else{
-	            
-	            //$this->mostrar_pagina($_GET["pagina"]);
+	        }else{	            	           
 	            return true;
 	        }
 	    }
@@ -68,50 +70,12 @@ include("../DAO/PermisosDAO.php");
 	    	//Devuelve TRUE si needle se encuentra en el array, FALSE de lo contrario.
 
 	    	$permisos = $this->getPermisosModulo_Tipo($id_modulo,$id_perfil_actual);
-
-	    	//print_r($permisos);
-
-	    	/*
-	    	if(in_array($perfil_actual, $perfiles_in)){
-	    		return "true";
-	    	}else{
-	    		return "false";
-	    	}*/
-	    	//echo sizeof($permisos[0]);
-	    	/**/
-	    	if (sizeof($permisos[0]) > 0 ) {
-	    		# code...
-	    		//echo "Se permite el ingreso.";
-	    		//crea cookies con los permisos para este modulo?
-	    		/*
-	    		//-----------------------------------------------
-	    		$crear=$permisos[0]['crear'];
-	    		$editar=$permisos[0]['editar'];
-	    		$eliminar=$permisos[0]['eliminar'];
-	    		$consultar=$permisos[0]['consultar'];
-	    		//cookies
-	    		setcookie("log_lunelAdmin_crear", $crear, time() + 3600*24, "/");
-	    		setcookie("log_lunelAdmin_editar", $editar, time() + 3600*24, "/");
-	    		setcookie("log_lunelAdmin_eliminar", $eliminar, time() + 3600*24, "/");
-	    		setcookie("log_lunelAdmin_consultar", $consultar, time() + 3600*24, "/");
-	    		//-----------------------------------------------*/
+	    	
+	    	if (sizeof($permisos[0]) > 0 ) {	    		
 	    		return true;
 	    	}else{	    		
-	    		//echo "No se permite el ingreso.";
-	    		/*
-	    		unset($_COOKIE["log_lunelAdmin_crear"]);
-	    		unset($_COOKIE["log_lunelAdmin_editar"]);
-	    		unset($_COOKIE["log_lunelAdmin_eliminar"]);
-	    		unset($_COOKIE["log_lunelAdmin_consultar"]);
-
-	    		setcookie("log_lunelAdmin_crear", null, -1, '/');
-	    		setcookie("log_lunelAdmin_editar", null, -1, '/');
-	    		setcookie("log_lunelAdmin_eliminar", null, -1, '/');
-	    		setcookie("log_lunelAdmin_consultar", null, -1, '/');
-				*/
 	    		return false;
-	    	}	    	
-	    		    	 
+	    	}	    		    	
 	    }
 	    //-------------------------------------------------------------------
 

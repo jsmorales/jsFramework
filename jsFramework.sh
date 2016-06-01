@@ -6,16 +6,8 @@
 #a ser en parte el nombre.
 #Segundo parametro: Nombre -- segun como se llame el módulo
 
-#echo "Todos : $*"
-#echo "Mostrando primer parametro : $1"
-#set ov toaster punto com
-#echo "todos después de set : $*"
-
 #---------------------------------------------------------------------------
-#funciones 
-
-#crear_DAO(){}
-
+#Funciones 
 #---------------------------------------------------------------------------
 
 #valida que lleve el tipo y el nombre
@@ -89,10 +81,25 @@ elif [ $1 == "controller" ] && [ $2 ]; then
 	echo "	/**/" >> ${NOMBRE_CONTROLLER}
 	echo "	include_once '../DAO/$2DAO.php';" >> ${NOMBRE_CONTROLLER} #nombre del DAO que debe existir previamente.
 	echo "		" >> ${NOMBRE_CONTROLLER}
-	echo "	class $2Controller {" >> ${NOMBRE_CONTROLLER}
+	echo "	class $2Controller extends $2DAO{" >> ${NOMBRE_CONTROLLER} #extiende del DAO.
+	echo "		" >> ${NOMBRE_CONTROLLER}
+	echo "		public $""NameCookieApp;" >> ${NOMBRE_CONTROLLER}
+	echo "		public $""id_modulo;" >> ${NOMBRE_CONTROLLER}
+	echo "		" >> ${NOMBRE_CONTROLLER}
+	echo "		" >> ${NOMBRE_CONTROLLER}
+	echo "		public function __construct() {" >> ${NOMBRE_CONTROLLER}
+	echo "			" >> ${NOMBRE_CONTROLLER}
+	echo "			include('../conexion/datos.php');" >> ${NOMBRE_CONTROLLER}
+	echo "			" >> ${NOMBRE_CONTROLLER}
+	echo "			//$""this->id_modulo = --; id de la tabla modulos" >> ${NOMBRE_CONTROLLER}
+	echo "			$""this->NameCookieApp = $""NomCookiesApp;" >> ${NOMBRE_CONTROLLER}
+	echo "			" >> ${NOMBRE_CONTROLLER}
+	echo "		}" >> ${NOMBRE_CONTROLLER}
+	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		//Funciones-------------------------------------------" >> ${NOMBRE_CONTROLLER}
-	echo "		//Espacio para las funciones en general de esta clase." >> ${NOMBRE_CONTROLLER}
+	echo "		//Espacio para las funciones de esta clase." >> ${NOMBRE_CONTROLLER}
+	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "	}" >> ${NOMBRE_CONTROLLER}
 	echo "?>" >> ${NOMBRE_CONTROLLER}
 	#------------------------------------------------------------------------
@@ -159,5 +166,5 @@ elif [ $1 == "cont_js" ] && [ $2 ]; then
 	#-----------------------------------------------------------------------
 
 else
-	echo "No es posible crear nada fata el tipo o el nombre, gracias."
+	echo "No es posible crear el archivo, falta el TIPO o el NOMBRE."
 fi

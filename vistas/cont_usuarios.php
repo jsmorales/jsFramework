@@ -1,12 +1,16 @@
 <?php 
 
   include("../controller/UsuariosController.php");
+  
+  include('../conexion/datos.php');
+
   $usuariosInst = new usuariosController();
 
-  /**/
-  $arrPermisos = $usuariosInst->permisosUsuario(13,$_COOKIE["log_lunelAdmin_IDtipo"]);
+  $arrPermisos = $usuariosInst->permisosUsuario($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
 
   $crea = $arrPermisos[0]["crear"];
+
+  //echo "Nombre de la aplicacion_".$NomCookiesApp;
 
  ?>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
@@ -60,7 +64,7 @@
                     <div class="form-group">
                         <label for="fkID_tipo" class="col-sm-2 control-label">Tipo de Usuario</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="fkID_tipo" name="fkID_tipo" required = "true">
+                            <select class="form-control" id="fkID_tipo" name="fkID_tipo" <?php if ($crea != 1){echo 'disabled="disabled"';} ?> required = "true">
                               <option></option>
                               <?php 
                                 $usuariosInst->getTipoUsuarios();
@@ -109,7 +113,7 @@
 
             <div class="row">
               <div class="col-md-6">
-                  Registro de Usuarios Lunel-IE
+                  Registro de Usuarios
               </div>
               <div class="col-md-6 text-right">
                  <button id="btn_nuevoUsuario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#frm_modal_usuario" <?php if ($crea != 1){echo 'disabled="disabled"';} ?> ><span class="glyphicon glyphicon-plus"></span> Nuevo usuario</button>  
@@ -137,7 +141,8 @@
                   <tbody>
                       <?php
                           //print_r($_COOKIE); 
-                          $usuariosInst->getTablaUsuarios($_COOKIE["log_lunelAdmin_tipo"]);                           
+                          //echo "valor de cookie de tipo ".$_COOKIE[$NomCookiesApp."_tipo"];
+                          $usuariosInst->getTablaUsuarios($_COOKIE[$NomCookiesApp."_tipo"]);                           
                        ?>
                   </tbody>
               </table>

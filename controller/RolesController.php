@@ -5,10 +5,19 @@
 	class RolesController extends RolesDAO{
 		
 		public $roles;
-		
+		public $id_modulo;
+		public $NameCookieApp;		
 		
 		//Funciones-------------------------------------------
 		//Espacio para las funciones en general de esta clase.
+
+		 public function __construct() {
+    	
+	    	include('../conexion/datos.php');
+        
+	        $this->id_modulo = 14;
+	        $this->NameCookieApp = $NomCookiesApp;
+	    }
 
 		public function getTablaRoles(){
 
@@ -24,7 +33,7 @@
 
 	    	
 	    	//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisos(14,$_COOKIE["log_lunelAdmin_IDtipo"]);
+    		$arrPermisos = $this->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];

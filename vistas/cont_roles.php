@@ -1,10 +1,10 @@
 <?php 
 
   include("../controller/RolesController.php");
-  $rolesInst = new RolesController();
+  include('../conexion/datos.php');
 
-  /**/
-  $arrPermisos = $rolesInst->permisos(14,$_COOKIE["log_lunelAdmin_IDtipo"]);
+  $rolesInst = new RolesController();
+  $arrPermisos = $rolesInst->permisos($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
 
   $crea = $arrPermisos[0]["crear"];
 
