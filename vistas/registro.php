@@ -72,11 +72,13 @@
                                 </div>                                                            
                             </fieldset>                           
                         </form>
+                        
                         <!-- Change this to a button or input when using this as a form --> 
                         <button id="btn_register" data-action="crear" class="btn btn-lg btn-success btn-block">Registrarme</button>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -92,7 +94,9 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <script src="../js/plugins/validav1/valida_p_v1.js"></script>
+    <script src="../bower_components/valida_p.js/js/valida_p_v1.js"></script>
+
+    <script src="../js/validaFormPlugin2.js"></script>
 
     <script src="../js/scripts_cont/cont_registro.js"></script>
 

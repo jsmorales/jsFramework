@@ -27,7 +27,7 @@
 
                 <form id="form_usuario" class="form-horizontal" method="POST">
                 <br>
-                    <div class="form-group" hidden>                     
+                    <div class="form-group " hidden>                     
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="pkID" name="pkID">
                         </div>
@@ -37,6 +37,7 @@
                         <label for="alias" class="col-sm-2 control-label">Alias</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="alias" name="alias" placeholder="Nombre de usuario en el sistema" required = "true">
+                            
                         </div>
                     </div>
 
@@ -57,7 +58,7 @@
                     <div class="form-group">
                         <label for="apellidos" class="col-sm-2 control-label">Apellidos</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellidos del usuario" required = "true">
+                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellidos del usuario" >
                         </div>
                     </div>                
 

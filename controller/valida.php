@@ -17,13 +17,18 @@ include("../DAO/PermisosDAO.php");
 	    public $nameCookieApp;	  
 	    //-----------------------------------------
 
-	    function __construct(){
+	    public function construye(){
 	    	include('../conexion/datos.php');
 	    	$this->nameCookieApp = $NomCookiesApp;
+
+	    	//echo "nombre de la app "+$this->nameCookieApp;
 	    }
 	    //funciones
 	    public function asigna_vals(){
 
+	    	$this->construye();
+
+	    	//echo "nombre de la app "+$this->nameCookieApp;
 	    	//print_r($_COOKIE);
 
 	    	if(sizeof($_COOKIE) <= 2){ 

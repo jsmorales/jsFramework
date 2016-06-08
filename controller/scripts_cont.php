@@ -46,6 +46,8 @@
                     <script src="../bower_components/jquery_controller.js/jquery_controller.js"></script>
                     <script src="../bower_components/validaArchivoPlugin.js/validaArchivoPlugin.js"></script>
 
+                    <script src="../js/validaFormPlugin2.js"></script>
+
                     <!-- Custom Theme JavaScript -->
                     <script src="../dist/js/sb-admin-2.js"></script>';            
         }

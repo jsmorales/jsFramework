@@ -296,4 +296,6 @@ $(function(){
 
   	//---------------------------------------------------------
   	//ejecucion cambiar de pass
+
+  	$("#form_usuario").validaForm(48);
 });
