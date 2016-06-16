@@ -107,9 +107,6 @@ function verificaPathAppClone {
 		#entra al directorio de la app
 		cd "$RUTA_APACHE/$NOM_APP"
 
-		#quitar el directorio de git para poder iniciar uno nuevo
-		#rm -r .git
-
 		#installBD
 		#crear bd
 		#
@@ -126,10 +123,10 @@ function creaBD {
 
 	echo -e "\e[37mVerificando archivo sql para instalar la BD...\e[0m"
 
-	if [ -f "jsFrameWorkBD.sql" ]; then
+	if [ -f "lunelAdmin (6).sql" ]; then
 		#statements
 		echo -e "\e[32mFILE_SQL---OK [Se encontró el archivo en $(pwd)]\e[0m"
-		ls -l | grep jsFrameWorkBD.sql
+		ls -l | grep .sql
 
 		pidePassBD
 
@@ -149,9 +146,9 @@ function pidePassBD {
 	mysqladmin -u root -p$PASS_MYSQL create $NOM_APP
 
 	echo -e "\e[37mReestableciendo la BD...\e[0m"
-	mysql -u root -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"
+	mysql -u root -p$PASS_MYSQL $NOM_APP < "lunelAdmin (6).sql"
 
-	echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
+	#echo -e "\e[32mFILE_SQL---OK [Se reestablecio la BD para la aplicación.]\e[0m"
 }
 
 function verInternet {
