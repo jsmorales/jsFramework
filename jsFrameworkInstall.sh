@@ -108,7 +108,8 @@ function verificaPathAppClone {
 		cd "$RUTA_APACHE/$NOM_APP"
 
 		#quitar el directorio de git para poder iniciar uno nuevo
-		#rm -r .git
+		echo -e "\e[37mRemoviendo carpeta .git -> [DIR /.git]\e[0m"
+		rm -r .git
 
 		#installBD
 		#crear bd
@@ -140,16 +141,19 @@ function creaBD {
 
 function pidePassBD {
 
-	echo -e "\e[34mPor favor ingrese la contraseña de mysql segui de [ENTER]:\e[0m"
+	echo -e "\e[34mPor favor ingrese el usuario de mysql seguido de [ENTER]:\e[0m"
+	read USER_MYSQL
+
+	echo -e "\e[34mPor favor ingrese la contraseña de mysql seguido de [ENTER]:\e[0m"
 	read PASS_MYSQL
 
 	echo -e "\e[37mCreando la BD...\e[0m"
 	#CREA_BD=$(mysqladmin -u root -p create $NOM_APP | grep error)
 	#echo "el resultado de crear la bd es:"$CREA_BD
-	mysqladmin -u root -p$PASS_MYSQL create $NOM_APP
+	mysqladmin -u $USER_MYSQL -p$PASS_MYSQL create $NOM_APP
 
 	echo -e "\e[37mReestableciendo la BD...\e[0m"
-	mysql -u root -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"
+	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"
 
 	echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
 }
