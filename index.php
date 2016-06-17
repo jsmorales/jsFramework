@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<title>LunelAdmin Index</title>
+	<head>	
 		<script language="javascript">
 		    window.location.href = "vistas/login.php"
 		</script>

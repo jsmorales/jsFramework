@@ -117,6 +117,42 @@ function verificaPathAppClone {
 		creaBD
 
 		#crear archivo de configuracion datos.php para el framework
+		NOMBRE_DATA="datos.php"
+		#entra a la carpeta conexion
+		cd conexion
+		#crea el archivo de datos.php
+		touch ${NOMBRE_DATA} && chmod -R 777 ${NOMBRE_DATA}
+
+		#inserta contenido------------------------------------------------------
+		echo "<?php" >> ${NOMBRE_DATA}
+		echo "	/**/" >> ${NOMBRE_DATA}	
+		echo "		" >> ${NOMBRE_DATA}
+		echo "//nombre directorio raiz" >> ${NOMBRE_DATA}	
+		echo "$""directorio_raiz = '"$NOM_APP"';" >> ${NOMBRE_DATA}
+		echo "		" >> ${NOMBRE_DATA}
+		echo "//Conexion Base de datos" >> ${NOMBRE_DATA}	
+		echo "$""dbconection='"$NOM_APP"';" >> ${NOMBRE_DATA}	
+		echo "$""userconection='"$USER_MYSQL"';" >> ${NOMBRE_DATA}	
+		echo "$""passconection='"$PASS_MYSQL"';" >> ${NOMBRE_DATA}	
+		echo "$""hostconection='localhost';" >> ${NOMBRE_DATA}	
+		echo "		" >> ${NOMBRE_DATA}	
+		echo "//Nombre Cookies App" >> ${NOMBRE_DATA}	
+		echo "$""NomCookiesApp = 'log_"$NOM_APP"';" >> ${NOMBRE_DATA}	
+		echo "		" >> ${NOMBRE_DATA}	
+		echo "//Ruta subida de archivos " >> ${NOMBRE_DATA}	
+		echo "$""ruta_server = '/var/www/html/"$NOM_APP"/vistas/subidas/';" >> ${NOMBRE_DATA}	
+		echo "		" >> ${NOMBRE_DATA}				
+		echo "?>" >> ${NOMBRE_DATA}
+		#------------------------------------------------------------------------
+		if [ -f ${NOMBRE_DATA} ];
+		then
+		echo -e "\e[32mDATA_OK---[El archivo DAO fue creado exitosamente.]\e[0m"
+		echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
+		else
+		echo -e "\e[31mDATA_ERROR---[El archivo no se pudo crear.]\e[0m"
+		echo -e "\e[31mINSTALL---END [Se ha terminado el proceso de instalación sin el archivo de datos.php.]\e[0m"
+		fi
+
 	else
 		echo -e "\e[31mgit clone /$NOM_APP---ERROR [Hubo un error al clonar el framework.]\e[0m"
 		reCloneGit
@@ -144,8 +180,20 @@ function pidePassBD {
 	echo -e "\e[34mPor favor ingrese el usuario de mysql seguido de [ENTER]:\e[0m"
 	read USER_MYSQL
 
-	echo -e "\e[34mPor favor ingrese la contraseña de mysql seguido de [ENTER]:\e[0m"
-	read PASS_MYSQL
+	#echo -e "\e[34mPor favor ingrese la contraseña de mysql seguido de [ENTER]:\e[0m"
+	#read PASS_MYSQL
+
+	echo
+	PROMPT="Por favor ingrese la contraseña de mysql seguido de [ENTER]:"
+	while IFS= read -p "$PROMPT" -r -s -n 1 char; do
+	    if [[ $char == $'\0' ]]; then
+	        break
+	    fi
+	    PROMPT='*'
+	    PASS_MYSQL+="$char"
+	done
+	
+	echo
 
 	echo -e "\e[37mCreando la BD...\e[0m"
 	#CREA_BD=$(mysqladmin -u root -p create $NOM_APP | grep error)
@@ -153,9 +201,7 @@ function pidePassBD {
 	mysqladmin -u $USER_MYSQL -p$PASS_MYSQL create $NOM_APP
 
 	echo -e "\e[37mReestableciendo la BD...\e[0m"
-	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"
-
-	echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
+	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"	
 }
 
 function verInternet {
