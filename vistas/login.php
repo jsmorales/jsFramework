@@ -30,6 +30,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <link href="../bower_components/ladda-bootstrap/dist/ladda-themeless.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -52,7 +54,7 @@
                                 </div>
                                 
                                 <!-- Change this to a button or input when using this as a form --> 
-                                <button id="btn_login" class="btn btn-lg btn-success btn-block">Ingresar</button>                               
+                                <button id="btn_login" class="btn btn-lg btn-success btn-block ladda-button" data-style="slide-up"><span class="ladda-label">Ingresar</span></button>                               
                             </fieldset>
                             <div class="form-group text-center">
                                 <br>
@@ -76,7 +78,19 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    
+    <!-- Ladda spinner -->
+    <script src="../bower_components/ladda-bootstrap/dist/spin.js"></script>
+    
+    <script src="../bower_components/ladda-bootstrap/dist/ladda.js"></script>
+    
+    <script>
+    $(function(){
+        //console.log('Hola login');
+        var l = Ladda.bind( '#btn_login' );
+        //l.start();
+    });
+    </script>
 </body>
 
 </html>

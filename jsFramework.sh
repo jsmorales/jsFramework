@@ -25,7 +25,7 @@ if [ $1 == "DAO" ] && [ $2 ] ; then
 	echo "<?php" >> ${NOMBRE_DAO}
 	echo "	/**/" >> ${NOMBRE_DAO}
 	echo "	include_once 'genericoDAO.php';" >> ${NOMBRE_DAO}
-	echo "	include_once 'Permisos_DAO.php';" >> ${NOMBRE_DAO}
+	echo "	include_once 'PermisosDAO.php';" >> ${NOMBRE_DAO}
 	echo "		" >> ${NOMBRE_DAO}
 	echo "	class $2DAO extends GenericoDAO {" >> ${NOMBRE_DAO}
 	echo "		" >> ${NOMBRE_DAO}
@@ -119,7 +119,96 @@ elif [ $1 == "controller" ] && [ $2 ]; then
 	echo "El archivo no se pudo crear."
 	fi
 	#-----------------------------------------------------------------------
+elif [ $1 == "module" ] && [ $2 ] && [ $3 ]; then
+	#statements
+	#1 tipo,2 nombre, 3 id del modulo en la BD
+	echo "Creando modulo..."
 
+	#crea en una variable el nombre del archivo
+	NOMBRE_MODULE="$2.php"
+	#crea el archivo con el comando touch y asigna permisos 777
+	touch vistas/${NOMBRE_MODULE} && chmod -R 777 vistas/${NOMBRE_MODULE}
+	#ingresa en la carpeta correspondiente
+	cd vistas/
+
+	#inserta contenido------------------------------------------------------
+	echo "<?php" >> ${NOMBRE_MODULE}
+	echo "	" >> ${NOMBRE_MODULE}
+	echo "	/**/" >> ${NOMBRE_MODULE}
+	echo "	include('../controller/muestra_pagina.php');" >> ${NOMBRE_MODULE}
+	echo "	" >> ${NOMBRE_MODULE}
+	echo "	$""muestra_"$2" = new mostrar();" >> ${NOMBRE_MODULE}
+	echo "	" >> ${NOMBRE_MODULE}
+	echo "	//---------------------------------------------------------" >> ${NOMBRE_MODULE}
+	echo "	$""pagina = 'cont_"$2".php';" >> ${NOMBRE_MODULE}
+	echo "	$""scripts = array('cont_"$2".js');" >> ${NOMBRE_MODULE}
+	echo "	$""id_modulo = "$3";" >> ${NOMBRE_MODULE}	
+	echo "	//---------------------------------------------------------" >> ${NOMBRE_MODULE}
+	echo "	" >> ${NOMBRE_MODULE}
+	echo "	$""muestra_"$2"->mostrar_pagina_scripts($""pagina,$""scripts,$""id_modulo);" >> ${NOMBRE_MODULE}
+	echo "?>" >> ${NOMBRE_MODULE}
+	#------------------------------------------------------------------------
+
+	#muestra el contenido de la carpeta
+	ls -l
+	
+	#notifica que el archivo ha sido creado // como validar que realmente se 
+	#creo el archivo? -- que pasa si ya existe?
+	#http://blog.desdelinux.net/comprobar-si-un-archivo-o-carpeta-existe-o-no-y-mas-con-ciclo-if/
+	#echo "El archivo fue creado con exito."
+	#Comprobacion de archivo
+	if [ -f ${NOMBRE_MODULE} ];
+	then
+	echo "El archivo module fue creado exitosamente."
+	else
+	echo "El archivo no se pudo crear."
+	fi
+	#-----------------------------------------------------------------------
+elif [ $1 == "module_cont" ] && [ $2 ] && [ $3 ]; then
+	#statements
+	echo "Creando module_cont..."
+	#1 tipo,2 nombre, 3 id del modulo en la BD
+	#-----------------------------------------------------------------------
+	#crea en una variable el nombre del archivo
+	NOMBRE_CONTMODULE="cont_$2.php"
+	#crea el archivo con el comando touch y asigna permisos 777
+	touch vistas/${NOMBRE_CONTMODULE} && chmod -R 777 vistas/${NOMBRE_CONTMODULE}
+	#ingresa en la carpeta correspondiente
+	cd vistas/
+
+	#inserta contenido------------------------------------------------------
+	echo "<?php" >> ${NOMBRE_CONTMODULE}
+	echo "	" >> ${NOMBRE_CONTMODULE}
+	echo "	/**/" >> ${NOMBRE_CONTMODULE}	
+	echo "	" >> ${NOMBRE_CONTMODULE}
+	echo "	include('../controller/"$2"Controller.php');" >> ${NOMBRE_CONTMODULE}
+	echo "	" >> ${NOMBRE_CONTMODULE}	
+	echo "	include('../conexion/datos.php');" >> ${NOMBRE_CONTMODULE}	
+	echo "	" >> ${NOMBRE_CONTMODULE}	
+	echo "	$"$2"Inst = new "$2"Controller("");" >> ${NOMBRE_CONTMODULE}	
+	echo "	" >> ${NOMBRE_CONTMODULE}	
+	echo "	$""arrPermisos = $"""$2"Inst->permisos($""id_modulo,$""_COOKIE[$""NomCookiesApp.""'_IDtipo'""]);" >> ${NOMBRE_CONTMODULE}	
+	echo "	" >> ${NOMBRE_CONTMODULE}
+	echo "	$""crea = $""arrPermisos[0]['crear'];" >> ${NOMBRE_CONTMODULE}	
+	echo "	" >> ${NOMBRE_CONTMODULE}		
+	echo "?>" >> ${NOMBRE_CONTMODULE}
+	#------------------------------------------------------------------------
+
+	#muestra el contenido de la carpeta
+	ls -l
+	
+	#notifica que el archivo ha sido creado // como validar que realmente se 
+	#creo el archivo? -- que pasa si ya existe?
+	#http://blog.desdelinux.net/comprobar-si-un-archivo-o-carpeta-existe-o-no-y-mas-con-ciclo-if/
+	#echo "El archivo fue creado con exito."
+	#Comprobacion de archivo
+	if [ -f ${NOMBRE_CONTMODULE} ];
+	then
+	echo "El archivo cont_module fue creado exitosamente."
+	else
+	echo "El archivo no se pudo crear."
+	fi
+	#-----------------------------------------------------------------------
 elif [ $1 == "cont_js" ] && [ $2 ]; then
 
 	echo "Creando cont_js..."
@@ -133,16 +222,15 @@ elif [ $1 == "cont_js" ] && [ $2 ]; then
 
 	#inserta contenido------------------------------------------------------
 	echo "$""(function(){" >> ${NOMBRE_CONT_JS}
+	echo "	 " >> ${NOMBRE_CONT_JS}	
 	echo "	 " >> ${NOMBRE_CONT_JS}
-	echo "	 //.jquery_controller('nombre_del_modulo','tipo','nombre de la tabla en BD','upload true/false','tipo de carga 1,2','reload true/false')" >> ${NOMBRE_CONT_JS}
+	echo "	 $("#btn_nuevo_").jquery_controllerV2({});" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}
-	echo "	 $("#btn_nuevo_").jquery_controller('_','nuevo','',false,'',false);" >> ${NOMBRE_CONT_JS}
+	echo "	 $("#btn_action_").jquery_controllerV2({});" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}
-	echo "	 $("#btn_action_").jquery_controller('_','inserta/edita','_',false,'',true);" >> ${NOMBRE_CONT_JS}
+	echo "	 $("[name*='edita__']").jquery_controllerV2({});" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}
-	echo "	 $("[name*='edita__']").jquery_controller('_','carga_editar','_',false,1,false);" >> ${NOMBRE_CONT_JS}
-	echo "	 " >> ${NOMBRE_CONT_JS}
-	echo "	 $("[name*='elimina__']").jquery_controller('_','eliminar','_',false,'',true);" >> ${NOMBRE_CONT_JS}
+	echo "	 $("[name*='elimina__']").jquery_controllerV2({});" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}
 	echo "	//---------------------------------------------------------" >> ${NOMBRE_CONT_JS}	
 	echo "});" >> ${NOMBRE_CONT_JS}

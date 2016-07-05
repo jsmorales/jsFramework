@@ -44,6 +44,7 @@
                     <!-- Plugins creados valida_p_v1,jquery_controller.js,validaArchivoPlugin.js -->
                     <script src="../bower_components/valida_p.js/js/valida_p_v1.js"></script>
                     <script src="../bower_components/jquery_controller.js/jquery_controller.js"></script>
+                    <script src="../bower_components/jquery_controllerV2.js/jquery_controllerV2.js"></script>
                     <script src="../bower_components/validaArchivoPlugin.js/validaArchivoPlugin.js"></script>
 
                     <script src="../js/validaFormPlugin2.js"></script>

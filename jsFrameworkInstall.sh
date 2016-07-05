@@ -24,6 +24,7 @@ function verificarGit {
 
 	if [ "$INSTALL_GIT" = "" ] || [ -z "$INSTALL_GIT" ]; then
 		echo -e "\e[31mGit---ERROR [Instale git e intente correr la instalación de nuevo.]\e[0m"
+		echo -e "\e[31mGit---INSTALL [apt-get install git]\e[0m"
 	else
 		#statements
 		echo -e "\e[32mGit---OK [Continuando la instalación.]\e[0m"
@@ -120,6 +121,10 @@ function verificaPathAppClone {
 		NOMBRE_DATA="datos.php"
 		#entra a la carpeta conexion
 		cd conexion
+
+		#quita el contenido del anterior datos.php------------------------------
+		cat /dev/null > ${NOMBRE_DATA}
+
 		#crea el archivo de datos.php
 		touch ${NOMBRE_DATA} && chmod -R 777 ${NOMBRE_DATA}
 
