@@ -1,5 +1,4 @@
 <?php
-
 /*
 ----------------------------------------------------------------------------------------
 Parametros para que funcionen las cookies en un servidor
@@ -13,18 +12,19 @@ ini_set("session.cache_limiter", "");
 session_start();
 ----------------------------------------------------------------------------------------
 */
+//ini_set('error_reporting', E_ALL|E_STRICT);
+//ini_set('display_errors', 1);
 
 include_once '../DAO/UsuariosDAO.php';
 
-/**
- * La clase UsuariosController maneja toda la parte de procesamiento de datos de usuarios
- *
- */
-class UsuariosController {
+include_once 'permisosController.php';
+
+
+class UsuariosController extends UsuariosDAO {
 
     //ATRIBUTOS DE LA CLASE
 
-    public $UsuariosDAO;
+    public $permisosInst;
     public $id_modulo;
     public $NameCookieApp;
         
@@ -34,24 +34,16 @@ class UsuariosController {
     	
     	include('../conexion/datos.php');
 
-        $this->UsuariosDAO = new UsuariosDAO();
+        $this->permisosInst = new permisosController();
         $this->id_modulo = 13;
         $this->NameCookieApp = $NomCookiesApp;
     }
 
-    //Funciones-----------------------------------------------------------------------
+    //Funciones-----------------------------------------------------------------------    
 
-    public function permisosUsuario($fkID_modulo,$fkID_tipo_usuario) {
-        return $this->UsuariosDAO->permisos($fkID_modulo,$fkID_tipo_usuario);
-    }
-    
-    public function getUsuarios() {
-        return $this->UsuariosDAO->getUsuarios();
-    }
-
-    public function getTipoUsuarios() {
+    public function getSelectTipoUsuarios() {
         
-        $tipo = $this->UsuariosDAO->getTipoUsuarios();
+        $tipo = $this->getTipoUsuarios();
         
         for($a=0;$a<sizeof($tipo);$a++){
         	echo "<option value='".$tipo[$a]["pkID"]."'>".$tipo[$a]["nombre"]."</option>";
@@ -65,10 +57,11 @@ class UsuariosController {
     		# code...
 
     		//get de los usuarios
-	    	$usuarios = $this->UsuariosDAO->getUsuarios();
+	    	$usuarios = $this->getUsuarios();
+	    	//print_r($usuarios);
 
 	    	//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisosUsuario($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
+    		$arrPermisos = $this->permisosInst->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];
@@ -128,10 +121,10 @@ class UsuariosController {
     	} else {
     		# code...
     		
-    		$usuario = $this->UsuariosDAO->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);
+    		$usuario = $this->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);
 
     		//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisosUsuario($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
+    		$arrPermisos = $this->permisosInst->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];
@@ -174,7 +167,7 @@ class UsuariosController {
 		$Usr_Mail=$_POST['username'];
 		$Usr_Clave=$_POST['password'];			
 				
-		$matriz=UsuariosDAO::getUsuariosLogin($Usr_Mail,$Usr_Clave);		
+		$matriz=$this->getUsuariosLogin($Usr_Mail,$Usr_Clave);		
 		
 		/*
 		Asignacion de valores desde la base de datos segun sean los campos-------------------------

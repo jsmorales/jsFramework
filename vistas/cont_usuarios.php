@@ -1,17 +1,17 @@
 <?php 
 
-  include("../controller/UsuariosController.php");
-  
+  include("../controller/UsuariosController.php");   
   include('../conexion/datos.php');
 
   $usuariosInst = new usuariosController();
 
-  $arrPermisos = $usuariosInst->permisosUsuario($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
+  $permisosInst = new permisosController();
+
+  $arrPermisos = $permisosInst->permisos($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
 
   $crea = $arrPermisos[0]["crear"];
 
   //echo "Nombre de la aplicacion_".$NomCookiesApp;
-
  ?>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 <!-- Form usuarios -->
@@ -68,7 +68,7 @@
                             <select class="form-control" id="fkID_tipo" name="fkID_tipo" <?php if ($crea != 1){echo 'disabled="disabled"';} ?> required = "true">
                               <option></option>
                               <?php 
-                                $usuariosInst->getTipoUsuarios();
+                                  $usuariosInst->getSelectTipoUsuarios();
                                ?>
                             </select>
                         </div>

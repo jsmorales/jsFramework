@@ -3,27 +3,8 @@
 	include_once 'genericoDAO.php';
 		
 	class PermisosDAO extends GenericoDAO {
-		
-		public $generico;
-		public $q_general;
-		
-		function __construct(){
-			$this->generico = new GenericoDAO();
-		}
-		
-
-		//Funciones------------------------------------------
-		//Espacio para las funciones en general de esta clase.
-
-		/*
-		SELECT permisos.*, tipo_usuario.nombre as nom_tipo, modulos.Nombre as nom_modulo 
-
-		FROM `permisos`
-
-		INNER JOIN tipo_usuario ON tipo_usuario.pkID = permisos.fkID_tipo_usuario
-
-		INNER JOIN modulos ON modulos.pkID = permisos.fkID_modulo
-		*/
+			
+		public $q_general;				
 
 		public function getPermisos(){
 
@@ -35,7 +16,7 @@
 
 								INNER JOIN modulos ON modulos.pkID = permisos.fkID_modulo";		
 			
-			return GenericoDAO::EjecutarConsulta($this->q_general);
+			return $this->EjecutarConsulta($this->q_general);
 		}
 
 		public function getPermisosModulo_Tipo($fkID_modulo,$fkID_tipo_usuario){
@@ -50,7 +31,7 @@
 
 								WHERE permisos.fkID_modulo = ".$fkID_modulo." AND permisos.fkID_tipo_usuario = ".$fkID_tipo_usuario;		
 			
-			return GenericoDAO::EjecutarConsulta($this->q_general);
+			return $this->EjecutarConsulta($this->q_general);
 		}
 	}
 ?>

@@ -105,7 +105,7 @@ $(function(){
 	        	 console.log(index+"--"+val)
 	        	 console.log(val)
 
-	        	 $("#fkID_modulo").append('<option value="'+val.pkID+'">'+val.Nombre+'</option>')
+	        	 $("#fkID_modulo").append('<option value="'+val.pkID+'">'+val.pkID+'-'+val.Nombre+'</option>')
 	        	 
 	        });
 

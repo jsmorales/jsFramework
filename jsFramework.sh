@@ -164,7 +164,7 @@ elif [ $1 == "module" ] && [ $2 ] && [ $3 ]; then
 	echo "El archivo no se pudo crear."
 	fi
 	#-----------------------------------------------------------------------
-elif [ $1 == "module_cont" ] && [ $2 ] && [ $3 ]; then
+elif [ $1 == "module_cont" ] && [ $2 ]; then
 	#statements
 	echo "Creando module_cont..."
 	#1 tipo,2 nombre, 3 id del modulo en la BD

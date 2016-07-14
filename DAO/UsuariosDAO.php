@@ -1,45 +1,24 @@
 <?php
 
 include_once 'genericoDAO.php';
-include_once 'Permisos_DAO.php';
 
-/**
- * Clase que maneja todas las consultas que tienen que ver con los usuarios
- */
+
 class UsuariosDAO extends GenericoDAO{
- 
-    /**
-     * Constructor de la clase
-     */
-    public function __construct() {
-        parent::__construct();
-    }
 
-    public function permisos($fkID_modulo,$fkID_tipo_usuario){
-
-      $this->permisos = new PermisosDAO();
-
-      $arrayPermisos = $this->permisos->getPermisosModulo_Tipo($fkID_modulo,$fkID_tipo_usuario);
-
-      return $arrayPermisos;
-
-    }
 
     public function getUsuarios(){        
-       //$sql = <<<SQL SELECT * FROM usuarios SQL;
-       //return GenericoDAO::EjecutarConsulta($sql);
+       
       $query = "select usuarios.*, tipo_usuario.nombre as nom_tipo
 
                 FROM `usuarios` 
 
                 INNER JOIN tipo_usuario ON tipo_usuario.pkID=usuarios.fkID_tipo";
 
-      return GenericoDAO::EjecutarConsulta($query);
+      return $this->EjecutarConsulta($query);
     }
 
     public function getUsuarioId($pkID){        
-       //$sql = <<<SQL SELECT * FROM usuarios SQL;
-       //return GenericoDAO::EjecutarConsulta($sql);
+       
       $query = "select usuarios.*, tipo_usuario.nombre as nom_tipo
 
                 FROM `usuarios` 
@@ -48,12 +27,11 @@ class UsuariosDAO extends GenericoDAO{
 
                 WHERE usuarios.pkID = ".$pkID;
 
-      return GenericoDAO::EjecutarConsulta($query);
+      return $this->EjecutarConsulta($query);
     }
 
     public function getUsuariosReporte(){        
-       //$sql = <<<SQL SELECT * FROM usuarios SQL;
-       //return GenericoDAO::EjecutarConsulta($sql);
+       
       $query = "select usuarios.pkID, usuarios.alias, usuarios.nombres, usuarios.apellidos, usuarios.numero_cc, tipo_usuario.nombre as nom_tipo
 
                 FROM `usuarios` 
@@ -62,18 +40,17 @@ class UsuariosDAO extends GenericoDAO{
 
                 ORDER BY `usuarios`.`pkID` ASC";
 
-      return GenericoDAO::EjecutarConsulta($query);
+      return $this->EjecutarConsulta($query);
     }
 
     public function getTipoUsuarios(){        
-       //$sql = <<<SQL SELECT * FROM usuarios SQL;
-       //return GenericoDAO::EjecutarConsulta($sql);
+       
       $query = "select * FROM `tipo_usuario`";
 
-      return GenericoDAO::EjecutarConsulta($query);
+      return $this->EjecutarConsulta($query);
     }
 	
-	 public static function getUsuariosLogin($p_usuario,$p_password){           	
+	 public function getUsuariosLogin($p_usuario,$p_password){           	
 
       $query = "select usuarios.*, tipo_usuario.nombre as t_usuario
 
@@ -81,12 +58,9 @@ class UsuariosDAO extends GenericoDAO{
 
                 inner join tipo_usuario on tipo_usuario.pkID = usuarios.fkID_tipo
 
-                where usuarios.alias='".$p_usuario."' and usuarios.pass=SHA1('".$p_password."')";
-   			
-		$Conector = new Conexion();
-		$db=$Conector->connect();		
+                where usuarios.alias='".$p_usuario."' and usuarios.pass=SHA1('".$p_password."')";   					
 		
-		return GenericoDAO::EjecutarConsulta($query);
+		return $this->EjecutarConsulta($query);
 		
     }
 	

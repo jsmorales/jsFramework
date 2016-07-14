@@ -151,7 +151,7 @@ function verificaPathAppClone {
 		#------------------------------------------------------------------------
 		if [ -f ${NOMBRE_DATA} ];
 		then
-		echo -e "\e[32mDATA_OK---[El archivo DAO fue creado exitosamente.]\e[0m"
+		echo -e "\e[32mDATA_OK---[El archivo "${NOMBRE_DATA}" fue creado exitosamente.]\e[0m"
 		echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
 		else
 		echo -e "\e[31mDATA_ERROR---[El archivo no se pudo crear.]\e[0m"
