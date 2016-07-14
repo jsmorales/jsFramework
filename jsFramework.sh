@@ -24,26 +24,15 @@ if [ $1 == "DAO" ] && [ $2 ] ; then
 	#inserta contenido------------------------------------------------------
 	echo "<?php" >> ${NOMBRE_DAO}
 	echo "	/**/" >> ${NOMBRE_DAO}
-	echo "	include_once 'genericoDAO.php';" >> ${NOMBRE_DAO}
-	echo "	include_once 'PermisosDAO.php';" >> ${NOMBRE_DAO}
+	echo "	include_once 'genericoDAO.php';" >> ${NOMBRE_DAO}	
 	echo "		" >> ${NOMBRE_DAO}
 	echo "	class $2DAO extends GenericoDAO {" >> ${NOMBRE_DAO}
-	echo "		" >> ${NOMBRE_DAO}
-	echo "		public $""permisos;" >> ${NOMBRE_DAO}
+	echo "		" >> ${NOMBRE_DAO}	
 	echo "		public $""q_general;" >> ${NOMBRE_DAO}
-	echo "		" >> ${NOMBRE_DAO}
-	echo "		function __construct(){" >> ${NOMBRE_DAO}
-	echo "			parent::__construct();" >> ${NOMBRE_DAO}
-	echo "		}" >> ${NOMBRE_DAO}
+	echo "		" >> ${NOMBRE_DAO}	
 	echo "		" >> ${NOMBRE_DAO}
 	echo "		//Funciones------------------------------------------" >> ${NOMBRE_DAO}
-	echo "		//Espacio para las funciones en general de esta clase." >> ${NOMBRE_DAO}
-	echo "   	public function permisos($""fkID_modulo,$""fkID_tipo_usuario){" >> ${NOMBRE_DAO}
-	echo "		" >> ${NOMBRE_DAO}
-	echo "			$""this->permisos = new PermisosDAO();" >> ${NOMBRE_DAO}
-	echo "			$""arrayPermisos = $""this->permisos->getPermisosModulo_Tipo($""fkID_modulo,$""fkID_tipo_usuario);" >> ${NOMBRE_DAO}
-	echo "			return $""arrayPermisos;" >> ${NOMBRE_DAO}
-	echo "		}" >> ${NOMBRE_DAO}
+	echo "		//Espacio para las funciones en general de esta clase." >> ${NOMBRE_DAO}	
 	echo "		" >> ${NOMBRE_DAO}
 	echo "	}" >> ${NOMBRE_DAO}
 	echo "?>" >> ${NOMBRE_DAO}
@@ -65,7 +54,7 @@ if [ $1 == "DAO" ] && [ $2 ] ; then
 	fi
 	#-----------------------------------------------------------------------
 
-elif [ $1 == "controller" ] && [ $2 ]; then
+elif [ $1 == "controller" ] && [ $2 ] && [ $3 ]; then
 	
 	echo "Creando controller..."
 
@@ -80,19 +69,22 @@ elif [ $1 == "controller" ] && [ $2 ]; then
 	echo "<?php" >> ${NOMBRE_CONTROLLER}
 	echo "	/**/" >> ${NOMBRE_CONTROLLER}
 	echo "	include_once '../DAO/$2DAO.php';" >> ${NOMBRE_CONTROLLER} #nombre del DAO que debe existir previamente.
+	echo "	include_once 'permisosController.php';" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "	class $2Controller extends $2DAO{" >> ${NOMBRE_CONTROLLER} #extiende del DAO.
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		public $""NameCookieApp;" >> ${NOMBRE_CONTROLLER}
 	echo "		public $""id_modulo;" >> ${NOMBRE_CONTROLLER}
+	echo "		public $""permisosInst;" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		public function __construct() {" >> ${NOMBRE_CONTROLLER}
 	echo "			" >> ${NOMBRE_CONTROLLER}
 	echo "			include('../conexion/datos.php');" >> ${NOMBRE_CONTROLLER}
 	echo "			" >> ${NOMBRE_CONTROLLER}
-	echo "			//$""this->id_modulo = --; id de la tabla modulos" >> ${NOMBRE_CONTROLLER}
+	echo "			$""this->id_modulo = $3; id de la tabla modulos" >> ${NOMBRE_CONTROLLER}
 	echo "			$""this->NameCookieApp = $""NomCookiesApp;" >> ${NOMBRE_CONTROLLER}
+	echo "			$""this->permisosInst = new permisosController();" >> ${NOMBRE_CONTROLLER}
 	echo "			" >> ${NOMBRE_CONTROLLER}
 	echo "		}" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
@@ -185,9 +177,10 @@ elif [ $1 == "module_cont" ] && [ $2 ]; then
 	echo "	" >> ${NOMBRE_CONTMODULE}	
 	echo "	include('../conexion/datos.php');" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}	
-	echo "	$"$2"Inst = new "$2"Controller("");" >> ${NOMBRE_CONTMODULE}	
+	echo "	$"$2"Inst = new "$2"Controller("");" >> ${NOMBRE_CONTMODULE}
+	echo "	$""permisosInst = new permisosController();" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}	
-	echo "	$""arrPermisos = $"""$2"Inst->permisos($""id_modulo,$""_COOKIE[$""NomCookiesApp.""'_IDtipo'""]);" >> ${NOMBRE_CONTMODULE}	
+	echo "	$""arrPermisos = $""permisosInst->permisos($""id_modulo,$""_COOKIE[$""NomCookiesApp.""'_IDtipo'""]);" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}
 	echo "	$""crea = $""arrPermisos[0]['crear'];" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}		

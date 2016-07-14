@@ -1,9 +1,12 @@
 <?php
 	/**/
 	include_once '../DAO/RolesDAO.php';
+
+	include_once 'permisosController.php';
 		
 	class RolesController extends RolesDAO{
 		
+		public $permisosInst;
 		public $roles;
 		public $id_modulo;
 		public $NameCookieApp;		
@@ -17,6 +20,7 @@
         
 	        $this->id_modulo = 14;
 	        $this->NameCookieApp = $NomCookiesApp;
+	        $this->permisosInst = new permisosController();
 	    }
 
 		public function getTablaRoles(){
@@ -33,7 +37,7 @@
 
 	    	
 	    	//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
+    		$arrPermisos = $this->permisosInst->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];

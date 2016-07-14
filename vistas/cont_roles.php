@@ -4,10 +4,11 @@
   include('../conexion/datos.php');
 
   $rolesInst = new RolesController();
-  $arrPermisos = $rolesInst->permisos($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
+  $permisosInst = new permisosController();
+
+  $arrPermisos = $permisosInst->permisos($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
 
   $crea = $arrPermisos[0]["crear"];
-
  ?>
 
 <!-- Form roles -->

@@ -1,33 +1,15 @@
 <?php
 	/**/
-	include_once 'GenericoDAO.php';
-	include_once 'Permisos_DAO.php';
+	include_once 'genericoDAO.php';
+	//include_once 'Permisos_DAO.php';
 		
 	class RolesDAO extends GenericoDAO {
 		
 		/*-----------------------------------------*/
 		//variables
 		public $q_general;
-		public $permisos;		
-		/*-----------------------------*/
-		public function __construct(){
-			//contruye la clase GenericoDAO
-			parent::__construct();
-		}
-		/*-----------------------------------------*/
+		//public $permisos;		
 
-		/*-----------------------------------------*/
-
-		public function permisos($fkID_modulo,$fkID_tipo_usuario){
-
-			$this->permisos = new PermisosDAO();
-
-			$arrayPermisos = $this->permisos->getPermisosModulo_Tipo($fkID_modulo,$fkID_tipo_usuario);
-
-			return $arrayPermisos;
-
-		}
-		
 		//Funciones------------------------------------------
 		//Espacio para las funciones en general de esta clase.
 
@@ -43,21 +25,21 @@
 
 								ORDER BY tipo_usuario.nombre";		
 			
-			return GenericoDAO::EjecutarConsulta($this->q_general);
+			return $this->EjecutarConsulta($this->q_general);
 		}
 
 		public function getTipoUsuario(){
 
 			$this->q_general = "select * FROM `tipo_usuario`";		
 			
-			return GenericoDAO::EjecutarConsulta($this->q_general);
+			return $this->EjecutarConsulta($this->q_general);
 		}
 
 		public function getModulos(){
 
 			$this->q_general = "select * FROM `modulos`";		
 			
-			return GenericoDAO::EjecutarConsulta($this->q_general);
+			return $this->EjecutarConsulta($this->q_general);
 		}
 	}
 ?>
