@@ -57,7 +57,14 @@
             ejecutarFunction:false
             //-----------------------------------------------------------------
         }, opciones );
-
+        
+        var options_format = {
+          symbol : "$",
+          decimal : ",",
+          thousand: ".",
+          precision : 0,
+          format: "%s%v"
+        };
         //------------------------------------------------------------------------------------------------------------------------
         //funcion de validacion
         function valida_action(action){
@@ -217,7 +224,7 @@
 
                   //condicional por si tiene mascaras de dinero añadidas
                   if (key == "valor") {
-                    $("#valor_mask").val(value);
+                    $("#valor_mask").val(accounting.formatNumber(value,options_format));
                   };
                   //-----------------------------------------------------
                                 

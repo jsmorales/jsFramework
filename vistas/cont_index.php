@@ -1,7 +1,6 @@
 <?php 
     //Inclusiones de ejemplo
-    include("../conexion/datos.php");    
-    
+    include("../conexion/datos.php");
  ?>
         <div id="page-wrapper">
                         
@@ -9,7 +8,7 @@
 
              <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Index <?php echo $directorio_raiz; ?></h1>
+                    <h1 class="page-header">Index <?php echo $directorio_raiz; ?> </h1>
                 </div>                
                 <!-- /.col-lg-12 -->
             </div>

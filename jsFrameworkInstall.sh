@@ -130,23 +130,23 @@ function verificaPathAppClone {
 
 		#inserta contenido------------------------------------------------------
 		echo "<?php" >> ${NOMBRE_DATA}
-		echo "	/**/" >> ${NOMBRE_DATA}	
+		echo "	/**/" >> ${NOMBRE_DATA}
 		echo "		" >> ${NOMBRE_DATA}
-		echo "//nombre directorio raiz" >> ${NOMBRE_DATA}	
+		echo "//nombre directorio raiz" >> ${NOMBRE_DATA}
 		echo "$""directorio_raiz = '"$NOM_APP"';" >> ${NOMBRE_DATA}
 		echo "		" >> ${NOMBRE_DATA}
-		echo "//Conexion Base de datos" >> ${NOMBRE_DATA}	
-		echo "$""dbconection='"$NOM_APP"';" >> ${NOMBRE_DATA}	
-		echo "$""userconection='"$USER_MYSQL"';" >> ${NOMBRE_DATA}	
-		echo "$""passconection='"$PASS_MYSQL"';" >> ${NOMBRE_DATA}	
-		echo "$""hostconection='localhost';" >> ${NOMBRE_DATA}	
-		echo "		" >> ${NOMBRE_DATA}	
-		echo "//Nombre Cookies App" >> ${NOMBRE_DATA}	
-		echo "$""NomCookiesApp = 'log_"$NOM_APP"';" >> ${NOMBRE_DATA}	
-		echo "		" >> ${NOMBRE_DATA}	
-		echo "//Ruta subida de archivos " >> ${NOMBRE_DATA}	
-		echo "$""ruta_server = '/var/www/html/"$NOM_APP"/vistas/subidas/';" >> ${NOMBRE_DATA}	
-		echo "		" >> ${NOMBRE_DATA}				
+		echo "//Conexion Base de datos" >> ${NOMBRE_DATA}
+		echo "$""dbconection='"$NOM_APP"';" >> ${NOMBRE_DATA}
+		echo "$""userconection='"$USER_MYSQL"';" >> ${NOMBRE_DATA}
+		echo "$""passconection='"$PASS_MYSQL"';" >> ${NOMBRE_DATA}
+		echo "$""hostconection='localhost';" >> ${NOMBRE_DATA}
+		echo "		" >> ${NOMBRE_DATA}
+		echo "//Nombre Cookies App" >> ${NOMBRE_DATA}
+		echo "$""NomCookiesApp = 'log_"$NOM_APP"';" >> ${NOMBRE_DATA}
+		echo "		" >> ${NOMBRE_DATA}
+		echo "//Ruta subida de archivos " >> ${NOMBRE_DATA}
+		echo "$""ruta_server = '/var/www/html/"$NOM_APP"/vistas/subidas/';" >> ${NOMBRE_DATA}
+		echo "		" >> ${NOMBRE_DATA}
 		echo "?>" >> ${NOMBRE_DATA}
 		#------------------------------------------------------------------------
 		if [ -f ${NOMBRE_DATA} ];
@@ -206,7 +206,7 @@ function pidePassBD {
 	mysqladmin -u $USER_MYSQL -p$PASS_MYSQL create $NOM_APP
 
 	echo -e "\e[37mReestableciendo la BD...\e[0m"
-	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"	
+	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"
 }
 
 function verInternet {
