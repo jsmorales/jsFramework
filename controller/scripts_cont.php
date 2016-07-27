@@ -3,6 +3,12 @@
 
     class scripts_pag {        
 
+        public $arr_rutas = array(
+                            "carpetas" => [],
+                            "archivos "=> []
+                        );
+                        /**/
+
         public function standar(){
 
             echo '  <!-- jQuery -->
@@ -59,7 +65,79 @@
                     <script src="../bower_components/morrisjs/morris.min.js"></script>
 
                     <!-- Custom Theme JavaScript -->
-                    <script src="../dist/js/sb-admin-2.js"></script>';            
+                    <script src="../dist/js/sb-admin-2.js"></script>';
+
+                    //echo "Trabajando directorios desde php!!";
+
+                    /*
+                    $bower_components = '../bower_components';
+                    
+                    $ficheros1  = scandir($bower_components);
+                    print_r($ficheros1);
+
+                    $arr_rutas = [];
+
+                    foreach ($ficheros1 as $key => $value) {
+                        # code...
+                        echo  "Los directorios son: ".$value."<br>";
+
+                        if ( $value != '.' && $value != '..' ) {
+                            # code......................................................
+
+                            $dir_temp1 = $bower_components."/".$value;
+
+                            if ( is_dir($dir_temp1) ) {
+                                # code...
+                                echo "Se encontraron los siguientes directorios: <br>";
+                                $ficheros2  = scandir($dir_temp1);
+                                foreach ($ficheros2 as $key1 => $value1) {
+                                    # code...
+                                    echo  $dir_temp1." Contiene: ".$value1."<br>";
+
+                                    //si es directorio busca de nuevo
+                                    $dir_temp2 = $dir_temp1."/".$value1;
+
+                                    if(is_dir($dir_temp2)){
+                                        echo "Es un dir..."."<br>";
+                                    }else{
+                                        echo "El archivo se llama: ".$value1."<br>";
+                                        //mete la ruta en el array solo si termina en .js
+                                        if (ereg(".js$", $value1)) {
+                                            # code...
+                                            array_push($arr_rutas, $dir_temp2);
+                                        }                                       
+                                        
+                                    }
+                                    //--------------------------------------------
+                                }
+                            }
+                            #------------------------------------------------------------
+                        }
+                                                
+                    }
+                    echo "Las rutas encontradas son: <br>";
+                    print_r($arr_rutas);*/
+
+                    
+
+                   
+                    
+
+
+                    $bower_components = '../bower_components';
+                    
+                    //print_r(rutas_js($bower_components));
+
+                    
+                    //valida_array_rutas(rutas_js($bower_components));
+                    $array_ini = $this->rutas_js($bower_components);
+                    print_r($array_ini);
+                    $cant_carpetas = sizeof($array_ini["carpetas"]);
+
+                    echo "la cant de carpetas es: ".$cant_carpetas;
+
+                                                     
+                    
         }
 
         /*
@@ -78,6 +156,42 @@
                 echo '<script src="../js/scripts_cont/'.$arr_script[$i].'"></script>';
             }
         }
+
+        public function rutas_js($dir_padre){
+                                              
+           $dir_temp2 = '';
+
+            /**/
+           $scan = scandir($dir_padre);
+           //print_r($scan);
+           //----------------------------------------------------------------------------------------------
+           foreach ($scan as $llave_scan => $contenido_scan) {
+                
+                $dir_temp2 = $dir_padre."/".$contenido_scan;
+
+                //echo "validando: ".$dir_temp2."<br>";
+
+                if(is_dir($dir_temp2)){
+                    //echo "Es un dir..."."<br>";
+                    array_push($this->arr_rutas["carpetas"], $dir_temp2);
+                }else{
+                    //echo "El archivo se llama: ".$value1."<br>";
+                    //mete la ruta en el array solo si termina en .js
+                    if (ereg(".js$", $contenido_scan)) {
+                        # code...
+                        array_push($this->arr_rutas["archivos"], $dir_temp2);
+                    }                                       
+                    
+                }
+                
+           }
+           //----------------------------------------------------------------------------------------------
+           return $this->arr_rutas;
+
+           //print_r($arr_rutas);
+        }
+
+    //------------------------------------------------------------------------------------------------------
     }
 
  ?>
