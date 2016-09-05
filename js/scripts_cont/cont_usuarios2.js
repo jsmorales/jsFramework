@@ -1,6 +1,14 @@
 $(function(){
 	console.log('hola usuarios2')
 
+	color_campo('alias')
+
+
+	saludo_global()
+
+	console.log('Esta es la fecha y se puede llamar en cualquier parte '+date);
+
+
 	$("#btn_nuevoUsuario").jquery_controllerV2({
   		nom_modulo:'usuario',
   		titulo_label:'Nuevo Usuario'
