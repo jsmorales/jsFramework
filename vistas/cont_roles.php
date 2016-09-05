@@ -4,9 +4,9 @@
   include('../conexion/datos.php');
 
   $rolesInst = new RolesController();
-  $permisosInst = new permisosController();
+  //$permisosInst = new permisosController();
 
-  $arrPermisos = $permisosInst->permisos($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
+  $arrPermisos = $rolesInst->getPermisosModulo_Tipo($id_modulo,$_COOKIE[$NomCookiesApp."_IDtipo"]);
 
   $crea = $arrPermisos[0]["crear"];
  ?>

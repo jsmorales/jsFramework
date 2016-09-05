@@ -43,7 +43,7 @@
                 console.log('Ejecutando luego de Eliminar!!!');                
             },
             //-----------------------------------------------------------------
-            functionResCarga:function(){
+            functionResCarga:function(id,data){
                 //console.log('El eliminar registro: '+ajustes.id_resCrear);
                 console.log('Ejecutando luego de Cargar!!!');                
             },
@@ -54,8 +54,10 @@
             //-----------------------------------------------------------------
             //variable que dice si hay que ejecutar una funcion
             //esto depende del tipo
-            ejecutarFunction:false
-            //-----------------------------------------------------------------
+            ejecutarFunction:false,
+            //validacion de campo individual-----------------------------------
+            validarCampo:false,           
+            nom_campo:''
         }, opciones );
         
         var options_format = {
@@ -71,8 +73,15 @@
 
             if(ajustes.action==="crear"){
                 //crea_usuario();
-                console.log('crear desde la funcion del plugin');
-                crear();            
+                //console.log('crear desde la funcion del plugin');
+                if(ajustes.validarCampo == true){
+                  //crear();
+                  validaCampo();
+
+                }else{
+                  crear();
+                };
+
             }else if(ajustes.action==="editar"){
                 //edita_usuario();
                 editar();
@@ -103,13 +112,21 @@
                   //valida si sube archivos
                   if (ajustes.subida == true) {
                     //si el paramatro upload es true
-                    subida_archivo();                    
+                    subida_archivo();
+                    //----------------
+                    //location.reload();
+                    //----------------                    
                   };
 
-                  //valida si recarga la pagina al terminar
-                  if (ajustes.recarga == true) {
-                    location.reload();
-                  };
+                  if ((ajustes.subida == false) && (ajustes.recarga == true)) {
+                    
+                    //location.reload();
+
+                    setTimeout(function(){
+                      location.reload();
+                    }, 2000)
+                    
+                  };                  
 
                   //valida si debe ejecutar otra funcion dentro--------------------------------
                   //usando el ultimo id de registro
@@ -119,6 +136,10 @@
                     //console.log(data[0].last_id)
                     ajustes.functionResCrear();
                   };
+                  //---------------------------------------------------------------------------
+
+                  //---------------------------------------------------------------------------
+                  
                   //---------------------------------------------------------------------------
                             
                 })
@@ -136,6 +157,41 @@
 
             };
           //cierra crea
+
+        function validaCampo(){
+          //SELECT nombre FROM `estudio` where nombre LIKE 'Ingeniería de Sistemas'
+          
+          var val_campo = $("#form_"+ajustes.nom_modulo)[0][ajustes.nom_campo]["value"];
+          //console.log(val_campo)
+          var cons_validaCampo = 'select '+ajustes.nom_campo+' from '+ajustes.nom_tabla+' where '+ajustes.nom_campo+' LIKE "'+val_campo+'" ';
+          console.log(cons_validaCampo)
+          
+          /**/
+          $.ajax({
+              url: '../controller/ajaxController12.php',
+              data: "query="+cons_validaCampo+"&tipo=consulta_gen",
+          })
+          .done(function(data) {
+            
+            console.log(data)            
+
+            //console.log(valResConsulta)
+
+            if (data.estado == "Error") {
+                crear();
+            } else{
+              alert("El campo "+ajustes.nom_campo+" que ha ingresado ya existe y no se puede duplicar. Por favor ingrese un valor diferente.");
+            };
+
+          })
+          .fail(function() {
+              console.log("error");
+          })
+          .always(function() {
+              console.log("complete");
+          });
+          //---------------------------------------------------------------          
+        }
 
         function editar(){
 
@@ -158,14 +214,24 @@
                     console.log(data.mensaje.mensaje);
                     alert(data.mensaje.mensaje);
                     
-                    if (ajustes.subida == true) {
-                        //si el paramatro upload es true
-                        subida_archivo();                        
-                      };
+                    //valida si sube archivos
+                  if (ajustes.subida == true) {
+                    //si el paramatro upload es true
+                    subida_archivo();
+                    //----------------
+                    //location.reload();
+                    //----------------                    
+                  };
 
-                    if (ajustes.recarga == true) {
-                        location.reload();
-                      };
+                  if ((ajustes.subida == false) && (ajustes.recarga == true)) {
+                    
+                    //location.reload();
+
+                    setTimeout(function(){
+                      location.reload();
+                    }, 2000)
+                    
+                  };
 
                     //----------------------------------
                     //valida si debe ejecutar otra funcion dentro--------------------------------
@@ -219,7 +285,7 @@
                   if (ajustes.tipo_load == 1) {
                     $("#"+key).val(value);
                   } else if(ajustes.tipo_load == 2){
-                    $("#form_"+ajustes.nom_modulo)[0][key].value = value;
+                    $("#form_"+ajustes.nom_modulo)[0][key]["value"] = value;
                   };
 
                   //condicional por si tiene mascaras de dinero añadidas
@@ -236,7 +302,7 @@
                     //asigna el last_id en id_resCrear
                     //ajustes.id_resCrear = data[0].last_id;
                     //console.log(data[0].last_id)
-                    ajustes.functionResCarga(id);
+                    ajustes.functionResCarga(id,data);
                   };
                 //---------------------------------------------------------------------------             
             })
@@ -318,6 +384,10 @@
                         //una vez finalizado correctamente
                         success: function(data){
                           console.log(data);
+
+                          if (ajustes.recarga == true) {
+                            location.reload();
+                          };
                           //alert(data.estado);
                           //$("#not_img").removeAttr('hidden');
                           //$("#not_img").html(' <br /> <br /> <div class="'+data.clase+'" role="alert">'+data.estado+'</div>');

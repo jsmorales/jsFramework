@@ -17,7 +17,7 @@ $(function(){
     };
     //--------------------------------------------
 
-    console.log( leerCookie("log_lunelAdmin_id") );
+    //console.log( //leerCookie("log_lunelAdmin_id") );
 
     function crea_timeSesion(){
 
@@ -29,7 +29,7 @@ $(function(){
     	}
     }
 
-    crea_timeSesion()    
+    //crea_timeSesion()    
 
 	$('#timer-sesion').timer({
 	    duration: 1,

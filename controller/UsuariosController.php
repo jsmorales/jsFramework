@@ -17,7 +17,7 @@ session_start();
 
 include_once '../DAO/UsuariosDAO.php';
 
-include_once 'permisosController.php';
+//include_once 'permisosController.php';
 
 
 class UsuariosController extends UsuariosDAO {
@@ -34,7 +34,7 @@ class UsuariosController extends UsuariosDAO {
     	
     	include('../conexion/datos.php');
 
-        $this->permisosInst = new permisosController();
+        //$this->permisosInst = new permisosController();
         $this->id_modulo = 13;
         $this->NameCookieApp = $NomCookiesApp;
     }
@@ -61,7 +61,7 @@ class UsuariosController extends UsuariosDAO {
 	    	//print_r($usuarios);
 
 	    	//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisosInst->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
+    		$arrPermisos = $this->getPermisosModulo_Tipo($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];

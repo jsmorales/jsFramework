@@ -3,9 +3,9 @@
 	//-----------------
 	//error_reporting(0);
 	//-----------------
-include("../DAO/PermisosDAO.php");
+include("../DAO/genericoDAO.php");
 
-	class valida extends PermisosDAO {
+	class valida extends GenericoDAO {
 
 		//---------------------------------------------------------
 	    //variables de sesion
