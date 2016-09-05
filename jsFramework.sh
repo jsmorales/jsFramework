@@ -68,14 +68,12 @@ elif [ $1 == "controller" ] && [ $2 ] && [ $3 ]; then
 	#inserta contenido------------------------------------------------------
 	echo "<?php" >> ${NOMBRE_CONTROLLER}
 	echo "	/**/" >> ${NOMBRE_CONTROLLER}
-	echo "	include_once '../DAO/$2DAO.php';" >> ${NOMBRE_CONTROLLER} #nombre del DAO que debe existir previamente.
-	echo "	include_once 'permisosController.php';" >> ${NOMBRE_CONTROLLER}
+	echo "	include_once '../DAO/$2DAO.php';" >> ${NOMBRE_CONTROLLER} #nombre del DAO que debe existir previamente.	
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "	class $2Controller extends $2DAO{" >> ${NOMBRE_CONTROLLER} #extiende del DAO.
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		public $""NameCookieApp;" >> ${NOMBRE_CONTROLLER}
-	echo "		public $""id_modulo;" >> ${NOMBRE_CONTROLLER}
-	echo "		public $""permisosInst;" >> ${NOMBRE_CONTROLLER}
+	echo "		public $""id_modulo;" >> ${NOMBRE_CONTROLLER}	
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		public function __construct() {" >> ${NOMBRE_CONTROLLER}
@@ -83,8 +81,7 @@ elif [ $1 == "controller" ] && [ $2 ] && [ $3 ]; then
 	echo "			include('../conexion/datos.php');" >> ${NOMBRE_CONTROLLER}
 	echo "			" >> ${NOMBRE_CONTROLLER}
 	echo "			$""this->id_modulo = $3; id de la tabla modulos" >> ${NOMBRE_CONTROLLER}
-	echo "			$""this->NameCookieApp = $""NomCookiesApp;" >> ${NOMBRE_CONTROLLER}
-	echo "			$""this->permisosInst = new permisosController();" >> ${NOMBRE_CONTROLLER}
+	echo "			$""this->NameCookieApp = $""NomCookiesApp;" >> ${NOMBRE_CONTROLLER}	
 	echo "			" >> ${NOMBRE_CONTROLLER}
 	echo "		}" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
@@ -177,10 +174,9 @@ elif [ $1 == "module_cont" ] && [ $2 ]; then
 	echo "	" >> ${NOMBRE_CONTMODULE}	
 	echo "	include('../conexion/datos.php');" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}	
-	echo "	$"$2"Inst = new "$2"Controller("");" >> ${NOMBRE_CONTMODULE}
-	echo "	$""permisosInst = new permisosController();" >> ${NOMBRE_CONTMODULE}	
+	echo "	$"$2"Inst = new "$2"Controller("");" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}	
-	echo "	$""arrPermisos = $""permisosInst->permisos($""id_modulo,$""_COOKIE[$""NomCookiesApp.""'_IDtipo'""]);" >> ${NOMBRE_CONTMODULE}	
+	echo "	$""arrPermisos = $"$2"Inst->getPermisosModulo_Tipo($""id_modulo,$""_COOKIE[$""NomCookiesApp.""'_IDtipo'""]);" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}
 	echo "	$""crea = $""arrPermisos[0]['crear'];" >> ${NOMBRE_CONTMODULE}	
 	echo "	" >> ${NOMBRE_CONTMODULE}		
