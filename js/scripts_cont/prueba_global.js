@@ -5,7 +5,7 @@
 	gracias a la declaracion self-- esto permite mantenerme DRY
 	*/
 	self.saludo_global = function(){
-		console.log('Esto es un saludo desde cualqueir parte?')
+		console.log('Esto es un saludo desde cualquier parte?')
 	}
 
 	self.date;

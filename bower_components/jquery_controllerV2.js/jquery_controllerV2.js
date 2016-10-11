@@ -1,20 +1,7 @@
 (function ( $ ) {
  
     $.fn.jquery_controllerV2 = function( opciones ) {
-    
-        /*
-        // This is the easiest way to have default options.
-        var settings = $.extend({
-            // These are the defaults.
-            color: "#556b2f",
-            backgroundColor: "white"
-        }, options );
- 
-        // Greenify the collection based on the settings variable.
-        return this.css({
-            color: settings.color,
-            backgroundColor: settings.backgroundColor
-        });*/
+            
 
         var ajustes = $.extend({
             // These are the defaults.
@@ -31,30 +18,14 @@
             titulo_label:'', //titulo de la ventana del modal
             nom_tabla:'', //nombre de la tabla en la BD
             //-----------------------------------------------------------------
-            //Datos resultado funcion crear
-            id_resCrear:'', //resultado de la insercion del registro(last_id)
-            functionResCrear:function(){
-                console.log('El ultimo creado fue: '+ajustes.id_resCrear);
-                console.log('Ejecutando luego de Insertar!!!');                
+            //CallBacks            
+            functionAfter:function(data){                
+                console.log('Ejecutando luego de Cualquier cosa!!!');                
+            },            
+            functionBefore:function(ajustes){                
+                console.log('Ejecutando antes de cualquier cosa!!!');                
             },
             //-----------------------------------------------------------------            
-            functionResEliminar:function(){
-                //console.log('El eliminar registro: '+ajustes.id_resCrear);
-                console.log('Ejecutando luego de Eliminar!!!');                
-            },
-            //-----------------------------------------------------------------
-            functionResCarga:function(id,data){
-                //console.log('El eliminar registro: '+ajustes.id_resCrear);
-                console.log('Ejecutando luego de Cargar!!!');                
-            },
-            functionResEditar:function(){
-                console.log('Se editó registro: '+ajustes.id_resCrear);
-                console.log('Ejecutando luego de Editar!!!');                
-            },
-            //-----------------------------------------------------------------
-            //variable que dice si hay que ejecutar una funcion
-            //esto depende del tipo
-            ejecutarFunction:false,
             //validacion de campo individual-----------------------------------
             validarCampo:false,           
             nom_campo:''
@@ -79,16 +50,31 @@
                   validaCampo();
 
                 }else{
-                  crear();
+
+                  if (ajustes.subida==true) {
+                    subida_archivo('crear')
+                  } else{
+                    crear();
+                  };
+                  
                 };
 
             }else if(ajustes.action==="editar"){
+                
                 //edita_usuario();
-                editar();
+                if (ajustes.subida==true) {
+                  subida_archivo('editar')
+                } else{
+                  editar();
+                };
+                
             };
         };
 
         function crear(){
+              
+              //callback before      
+              ajustes.functionBefore(ajustes);
 
               //--------------------------------------
               //crea el objeto formulario serializado
@@ -98,6 +84,7 @@
               //console.log(objt_f_adminPublicidad.srlz);
               //--------------------------------------
               /**/
+
               if( ajustes.objt_f.estado == true ){
 
                 $.ajax({
@@ -107,40 +94,15 @@
                 .done(function(data) {            
                   //---------------------
                   console.log(data);
-                  alert(data[0].mensaje);
-                  
-                  //valida si sube archivos
-                  if (ajustes.subida == true) {
-                    //si el paramatro upload es true
-                    subida_archivo();
-                    //----------------
-                    //location.reload();
-                    //----------------                    
-                  };
-
-                  if ((ajustes.subida == false) && (ajustes.recarga == true)) {
-                    
-                    //location.reload();
-
-                    setTimeout(function(){
-                      location.reload();
-                    }, 2000)
-                    
-                  };                  
-
-                  //valida si debe ejecutar otra funcion dentro--------------------------------
-                  //usando el ultimo id de registro
-                  if (ajustes.ejecutarFunction == true) {
-                    //asigna el last_id en id_resCrear
-                    ajustes.id_resCrear = data[0].last_id;
-                    //console.log(data[0].last_id)
-                    ajustes.functionResCrear();
-                  };
+                  alert(data[0].mensaje);                 
+                                                     
+                  //Ejecuta callback-----------------------------------------------------------                  
+                  ajustes.functionAfter(data);                  
                   //---------------------------------------------------------------------------
-
-                  //---------------------------------------------------------------------------
-                  
-                  //---------------------------------------------------------------------------
+                  if (ajustes.recarga == true) {                    
+                    location.reload();                    
+                  }; 
+                  //---------------------------------------------------------------------------                               
                             
                 })
                 .fail(function(data) {
@@ -158,12 +120,12 @@
             };
           //cierra crea
 
-        function validaCampo(){
-          //SELECT nombre FROM `estudio` where nombre LIKE 'Ingeniería de Sistemas'
+        function validaCampo(){          
           
           var val_campo = $("#form_"+ajustes.nom_modulo)[0][ajustes.nom_campo]["value"];
-          //console.log(val_campo)
+          
           var cons_validaCampo = 'select '+ajustes.nom_campo+' from '+ajustes.nom_tabla+' where '+ajustes.nom_campo+' LIKE "'+val_campo+'" ';
+          
           console.log(cons_validaCampo)
           
           /**/
@@ -194,7 +156,10 @@
         }
 
         function editar(){
-
+            
+            //callback before-----------------------------------------
+            ajustes.functionBefore(ajustes);
+            
             //--------------------------------------
             //crea el objeto formulario serializado
             ajustes.objt_f = $("#form_"+ajustes.nom_modulo).valida();
@@ -213,36 +178,15 @@
                     //---------------------
                     console.log(data.mensaje.mensaje);
                     alert(data.mensaje.mensaje);
-                    
-                    //valida si sube archivos
-                  if (ajustes.subida == true) {
-                    //si el paramatro upload es true
-                    subida_archivo();
-                    //----------------
-                    //location.reload();
-                    //----------------                    
-                  };
-
-                  if ((ajustes.subida == false) && (ajustes.recarga == true)) {
-                    
-                    //location.reload();
-
-                    setTimeout(function(){
-                      location.reload();
-                    }, 2000)
-                    
-                  };
-
+                                                        
                     //----------------------------------
-                    //valida si debe ejecutar otra funcion dentro--------------------------------
-                      //usando el ultimo id de registro
-                      if (ajustes.ejecutarFunction == true) {
-                        //asigna el last_id en id_resCrear
-                        ajustes.id_resCrear = $("#pkID").val();
-                        //console.log(data[0].last_id)
-                        ajustes.functionResEditar();
-                      };
-                      //---------------------------------------------------------------------------
+                    //callback after                    
+                    ajustes.functionAfter(data);
+                    
+                    //---------------------------------------------------------------------------
+                    if (ajustes.recarga == true) {                    
+                      location.reload();                      
+                    };
                     //----------------------------------
                 })
                 .fail(function() {
@@ -253,13 +197,17 @@
                 });
 
             }else{
-                alert("Faltan "+Object.keys(objt_f.objt).length+" campos por llenar.");
+                alert("Faltan "+Object.keys(ajustes.objt_f.objt).length+" campos por llenar.");
             }
             //------------------------------------------------------
         };
         //cierra editar
 
         function carga(id){
+            
+            //callback before --------------------
+            ajustes.functionBefore(ajustes);      
+            //------------------------------------                    
 
             console.log("Carga el id "+id);
 
@@ -269,7 +217,7 @@
             })
             .done(function(data) {
                 /**/
-                $.each(data.mensaje[0], function( key, value ) {
+                var ciclo_carga = $.each(data.mensaje[0], function( key, value ) {
                   console.log(key+"--"+value);
                   //-----------------------------------------------------
                   //Tipo de Carga con el Plugin
@@ -296,15 +244,23 @@
                                 
                 });
 
-                //valida si debe ejecutar otra funcion dentro--------------------------------
-                  //usando el ultimo id de registro
-                  if (ajustes.ejecutarFunction == true) {
-                    //asigna el last_id en id_resCrear
-                    //ajustes.id_resCrear = data[0].last_id;
-                    //console.log(data[0].last_id)
-                    ajustes.functionResCarga(id,data);
-                  };
-                //---------------------------------------------------------------------------             
+                $.when(ciclo_carga).then(ciclo_carga_ok, ciclo_carga_fail);
+
+                function ciclo_carga_ok(){
+
+                  //callback after--------------------------------                  
+                  ajustes.functionAfter(data);                 
+                  //---------------------------------------------------------------------------   
+                }
+
+                function ciclo_carga_fail(){
+
+                  //callback after--------------------------------                  
+                  console.log('Algo salió mal cargando la data.');
+                  console.log(data);                 
+                  //---------------------------------------------------------------------------   
+                }
+                //--------------------------------------------------------------------------                        
             })
             .fail(function() {
                 console.log("error");
@@ -318,11 +274,15 @@
          
         function eliminar(id){
 
+            //callback before------------------
+            ajustes.functionBefore(ajustes);
+            //---------------------------------
+                             
             console.log('Eliminar el registro: '+id);
 
             var confirma = confirm("En realidad quiere eliminar este registro?");
 
-            console.log(confirma);
+            //console.log(confirma);
             /**/
             if(confirma == true){
               //si confirma es true ejecuta ajax
@@ -338,12 +298,9 @@
                     //valida si hay que recargar la pagina
                     if (ajustes.recarga == true) {
                         location.reload();
-                     };
-                    //------------------------------------
-                    if (ajustes.ejecutarFunction == true) {
-                                                
-                        ajustes.functionResEliminar(id);
-                      };
+                    };
+                    //------------------------------------                                          
+                    ajustes.functionAfter(data);                      
                     //------------------------------------
                 })
                 .fail(function() {
@@ -352,13 +309,11 @@
                 .always(function() {
                     console.log("complete");
                 });
-            }else{
-              //no hace nada
-            }
+            };
         };
         //cierra eliminar
 
-          function subida_archivo(){
+          function subida_archivo(tipo){
 
                    //---------------------------------------------------------------------------------------
                    //CREA UNA VARIABLE  DE TIPO FormData que toma el formulario
@@ -380,17 +335,30 @@
                         //mientras enviamos el archivo
                         beforeSend: function(){
                             console.log("Subiendo archivo, por favor espere...");
+
+                            if ($("#archivo")[0]["files"].length > 0) {
+                              $(".alert").html("Subiendo archivo, por favor espere...");
+                            } else{
+                              $(".alert").html("No hay archivo para subir.");
+                            };
+                            
                         },
                         //una vez finalizado correctamente
                         success: function(data){
+                          
                           console.log(data);
-
-                          if (ajustes.recarga == true) {
-                            location.reload();
+                          
+                          if ($("#archivo")[0]["files"].length > 0) {
+                              $(".alert").html(data.estado);
+                          } else{
+                            $(".alert").html("No hay archivo para subir.");
                           };
-                          //alert(data.estado);
-                          //$("#not_img").removeAttr('hidden');
-                          //$("#not_img").html(' <br /> <br /> <div class="'+data.clase+'" role="alert">'+data.estado+'</div>');
+
+                          if (tipo=='crear') {
+                            crear();
+                          } else if('editar'){
+                            editar();
+                          };
 
                         },
                         //si ha ocurrido un error
@@ -407,6 +375,11 @@
             case 'nuevo':
                 // statements_1
                 this.click(function(event) {
+
+                    //se ejecuta luego por el reset del form----------------------------                    
+                    ajustes.functionBefore(ajustes);
+                    //------------------------------------------------------------------
+
                     /* Act on the event */
                     if (ajustes.titulo_label == '') {
 
@@ -422,7 +395,10 @@
                     $("#btn_action"+ajustes.nom_modulo).attr("data-action","crear");
 
                     $("#form_"+ajustes.nom_modulo)[0].reset();
-                    
+                                                          
+                    //------------------------------------------------------------------
+                    ajustes.functionAfter(ajustes);
+                    //------------------------------------------------------------------
                 });
                 break;
             //---------------------------------------------------------------------------
@@ -461,7 +437,7 @@
 
                     id = $(this).attr('data-id-'+ajustes.nom_modulo);
 
-                    console.log('el id del registro es:'+id);
+                    console.log('El id del registro es:'+id);
 
                     carga(id);
                 });

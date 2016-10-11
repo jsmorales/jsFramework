@@ -1,29 +1,35 @@
 $(function(){
-	console.log('hola usuarios2')
-
-	color_campo('alias')
-
-
-	saludo_global()
-
-	console.log('Esta es la fecha y se puede llamar en cualquier parte '+date);
 
 
 	$("#btn_nuevoUsuario").jquery_controllerV2({
   		nom_modulo:'usuario',
-  		titulo_label:'Nuevo Usuario'
-  	});
-
-  	$("#btn_nuevoUsuario").click(function(event) {
-  		/* Act on the event */
-  		destruye_cambia_pass();	
-  	});
+  		titulo_label:'Nuevo Usuario',
+  		functionBefore:function(ajustes){
+  			console.log('Ejecutando antes de todo...');
+  			console.log(ajustes);
+  			//$("#btn_actionusuario").html("Esto es antes...")
+  		},
+  		functionAfter:function(ajustes){
+  			console.log('Ejecutando despues de todo...');
+  			//console.log(ajustes);
+  			destruye_cambia_pass();
+  		}
+  	});  	
 
   	$("#btn_actionusuario").jquery_controllerV2({
   		tipo:'inserta/edita',
   		nom_modulo:'usuario',
   		nom_tabla:'usuarios',
-  		recarga:false  		 		  
+  		recarga:false,
+  		functionBefore:function(ajustes){
+  			console.log('Ejecutando antes de todo...');
+  			console.log(ajustes);
+  			//$("#btn_actionusuario").html("Esto es antes...")
+  		},
+  		functionAfter:function(data){
+  			console.log('Ejecutando despues de todo...');
+  			console.log(data);  		
+  		}  		 		  
   	});
 
   	$("[name*='edita_usuario']").jquery_controllerV2({
@@ -31,18 +37,30 @@ $(function(){
   		nom_modulo:'usuario',
   		nom_tabla:'usuarios',
   		titulo_label:'Editar Usuario',
-  		tipo_load:1
-	});
-
-	$("[name*='edita_usuario']").click(function(event) {
-		/* Act on the event */
-		crea_cambia_pass();
-	});
+  		tipo_load:1,
+  		functionBefore:function(ajustes){
+  			console.log('Ejecutando antes de todo...');
+  			console.log(ajustes);
+  			crea_cambia_pass();
+  		},
+  		functionAfter:function(data){
+  			console.log('Ejecutando despues de todo...');
+  			console.log(data);  		
+  		}
+	});	
 
   	$("[name*='elimina_usuario']").jquery_controllerV2({
   		tipo:'eliminar',
   		nom_modulo:'usuario',
-  		nom_tabla:'usuarios'
+  		nom_tabla:'usuarios',
+  		functionBefore:function(ajustes){
+  			console.log('Ejecutando antes de todo...');
+  			console.log(ajustes);  			
+  		},
+  		functionAfter:function(data){
+  			console.log('Ejecutando despues de todo...');
+  			console.log(data);  		
+  		}
   	}); 
 
   	//funciones cambiar de pass---------------------------------------------------------------------
