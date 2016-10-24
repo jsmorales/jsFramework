@@ -215,7 +215,7 @@ function instalaScript {
 	#cp jsFramework /usr/bin/
 	echo -e "\e[34mCopiando script a /usr/bin/\e[0m"
 
-	cp jsFramework /usr/bin/
+	cp "jsFramework" /usr/bin/
 
 	if [ -f "/usr/bin/jsFramework" ]; then
 		#statements
