@@ -214,6 +214,10 @@ function instalaScript {
 
 	#cp jsFramework /usr/bin/
 	echo -e "\e[34mCopiando script a /usr/bin/\e[0m"
+		
+	cd ..
+
+	pwd
 
 	cp "jsFramework" /usr/bin/
 

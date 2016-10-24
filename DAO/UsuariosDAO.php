@@ -49,6 +49,15 @@ class UsuariosDAO extends GenericoDAO{
 
       return $this->EjecutarConsulta($query);
     }
+
+    //SELECT * FROM `tipo_usuario` WHERE nombre != 'Administrador'
+
+    public function getTipoUsuariosNoAdmin(){        
+       
+      $query = "select * FROM `tipo_usuario` WHERE nombre != 'Administrador'";
+
+      return $this->EjecutarConsulta($query);
+    }
 	
 	 public function getUsuariosLogin($p_usuario,$p_password){           	
 

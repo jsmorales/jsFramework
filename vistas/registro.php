@@ -67,7 +67,12 @@
                                 <div class="form-group">
                                     <select id="fkID_tipo" name="fkID_tipo" class="form-control">
                                         <option value=""></option>
-                                        <?php $inst->getTipoUsuarios(); ?>
+                                        <?php
+                                            $tipos = $inst->getTipoUsuariosNoAdmin(); 
+                                            foreach ($tipos as $key => $value) {                                                
+                                                echo '<option value="'.$value["pkID"].'">'.$value["nombre"].'</option>';                                                
+                                            }
+                                        ?>
                                     </select>
                                 </div>                                                            
                             </fieldset>                           
