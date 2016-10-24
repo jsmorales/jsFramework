@@ -152,7 +152,8 @@ function verificaPathAppClone {
 		if [ -f ${NOMBRE_DATA} ];
 		then
 		echo -e "\e[32mDATA_OK---[El archivo "${NOMBRE_DATA}" fue creado exitosamente.]\e[0m"
-		echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
+		instalaScript
+		#echo -e "\e[32mINSTALL---END [Se ha terminado el proceso de instalación de la aplicación.]\e[0m"
 		else
 		echo -e "\e[31mDATA_ERROR---[El archivo no se pudo crear.]\e[0m"
 		echo -e "\e[31mINSTALL---END [Se ha terminado el proceso de instalación sin el archivo de datos.php.]\e[0m"
@@ -173,7 +174,7 @@ function creaBD {
 		echo -e "\e[32mFILE_SQL---OK [Se encontró el archivo en $(pwd)]\e[0m"
 		ls -l | grep jsFrameWorkBD.sql
 
-		pidePassBD
+		pidePassBD		
 
 	else
 		echo -e "\e[31mFILE_SQL---ERROR [No existe archivo framework.]\e[0m"
@@ -206,7 +207,22 @@ function pidePassBD {
 	mysqladmin -u $USER_MYSQL -p$PASS_MYSQL create $NOM_APP
 
 	echo -e "\e[37mReestableciendo la BD...\e[0m"
-	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"
+	mysql -u $USER_MYSQL -p$PASS_MYSQL $NOM_APP < "jsFrameWorkBD.sql"	
+}
+
+function instalaScript {
+
+	#cp jsFramework /usr/bin/
+	echo -e "\e[34mCopiando script a /usr/bin/\e[0m"
+
+	cp jsFramework /usr/bin/
+
+	if [ -f "/usr/bin/jsFramework" ]; then
+		#statements
+		echo -e "\e[32mFILE_SH---OK [La instalación finalizó correctamente.]\e[0m"		
+	else
+		echo -e "\e[31mFILE_SH---ERROR [No fue posible instalar el framework.]\e[0m"
+	fi
 }
 
 function verInternet {
