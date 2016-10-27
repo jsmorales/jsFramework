@@ -27,12 +27,13 @@ class UsuariosController extends UsuariosDAO {
     public $permisosInst;
     public $id_modulo;
     public $NameCookieApp;
+    public $table_inst;
         
     //CONSTRUCTOR DE LA CLASE
 
     public function __construct() {
     	
-    	include('../conexion/datos.php');
+    	include('../conexion/datos.php');    	
 
         //$this->permisosInst = new permisosController();
         $this->id_modulo = 13;
@@ -53,46 +54,50 @@ class UsuariosController extends UsuariosDAO {
     //---------------------------------------------------------------------------------
     public function getTablaUsuarios($tipo){
 
+    	include_once 'helper_controller/render_table.php';
+
+    	//permisos-------------------------------------------------------------------------
+		$arrPermisos = $this->getPermisosModulo_Tipo($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
+		$edita = $arrPermisos[0]["editar"];
+		$elimina = $arrPermisos[0]["eliminar"];
+		$consulta = $arrPermisos[0]["consultar"];
+		//---------------------------------------------------------------------------------
+
+		//Define las variables de la tabla a renderizar
+
+    		//Los campos que se van a ver
+    		$usuarios_campos = ["pkID","alias","nombre","apellido","nom_tipo"];
+    		//la configuracion de los botones de opciones
+    		$usuarios_btn =[
+
+	    		 [
+	    			"tipo"=>"editar",
+	    			"nombre"=>"usuario",
+	    			"permiso"=>$edita,
+	    		 ],
+	    		 [
+	    			"tipo"=>"eliminar",
+	    			"nombre"=>"usuario",
+	    			"permiso"=>$elimina,
+	    		 ]
+
+	    	];
+	    //---------------------------------------------------------------------------------
+
     	if ( $tipo == "Administrador") {
-    		# code...
-
+    		    		
     		//get de los usuarios
-	    	$usuarios = $this->getUsuarios();
-	    	//print_r($usuarios);
+	    	$usuarios = $this->getUsuarios();	    	
+	    	
+	    	//Instancia el render
+	    	$this->table_inst = new RenderTable($usuarios,$usuarios_campos,$usuarios_btn);
+    		//---------------------------------------------------------------------------------     
 
-	    	//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->getPermisosModulo_Tipo($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
-    		$edita = $arrPermisos[0]["editar"];
-    		$elimina = $arrPermisos[0]["eliminar"];
-    		$consulta = $arrPermisos[0]["consultar"];
-    		//---------------------------------------------------------------------------------    
-
-	    	//valida si hay usuarioes
+	    	//valida si hay usuarios
 	    	if( ($usuarios) && ($consulta==1) ){
-
-	    		for($a=0;$a<sizeof($usuarios);$a++){
-
-	             $id = $usuarios[$a]["pkID"];
-	             $alias = $usuarios[$a]["alias"];                           
-	             $nombres = $usuarios[$a]["nombre"];
-	             $apellidos = $usuarios[$a]["apellido"];             
-	             $nom_tipo = $usuarios[$a]["nom_tipo"];
-	                                             
-
-	             echo '
-	                         <tr>
-	                             <td>'.$id.'</td>
-	                             <td>'.$alias.'</td>                                 
-	                             <td>'.$nombres.'</td>
-	                             <td>'.$apellidos.'</td>                             
-	                             <td>'.$nom_tipo.'</td>
-		                         <td>
-		                             <button id="btn_editar" name="edita_usuario" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_usuario" data-id-usuario = "'.$id.'" '; if ($edita != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-pencil"></span></button>		                             
-		                             <button id="btn_eliminar" name="elimina_usuario" type="button" class="btn btn-danger" data-id-usuario = "'.$id.'" ';  if ($elimina != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-remove"></span></button>
-		                         </td>
-		                     </tr>';
-	            };
-
+	    		
+	    		//ejecuta el render de la tabla
+	    		$this->table_inst->render();	    		
 
 	    	}elseif(($usuarios) && ($consulta==0)){
 
@@ -119,39 +124,15 @@ class UsuariosController extends UsuariosDAO {
 	        };
 
     	} else {
-    		# code...
     		
-    		$usuario = $this->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);
+    		$usuario = $this->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);    		
 
-    		//permisos-------------------------------------------------------------------------
-    		$arrPermisos = $this->permisosInst->permisos($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
-    		$edita = $arrPermisos[0]["editar"];
-    		$elimina = $arrPermisos[0]["eliminar"];
-    		$consulta = $arrPermisos[0]["consultar"];
-    		//---------------------------------------------------------------------------------
+	    	//print_r($usuarios_btn);
 
-    		for($a=0;$a<sizeof($usuario);$a++){
+	    	//Instancia el render
+	    	$this->table_inst = new RenderTable($usuario,$usuarios_campos,$usuarios_btn);
 
-             $id = $usuario[$a]["pkID"];
-             $alias = $usuario[$a]["alias"];                           
-             $nombres = $usuario[$a]["nombre"];
-             $apellidos = $usuario[$a]["apellido"];             
-             $nom_tipo = $usuario[$a]["nom_tipo"];
-                                             
-
-             echo '
-                         <tr>
-                             <td>'.$id.'</td>
-                             <td>'.$alias.'</td>                                 
-                             <td>'.$nombres.'</td>
-                             <td>'.$apellidos.'</td>                             
-                             <td>'.$nom_tipo.'</td>
-	                         <td>
-	                             <button id="btn_editar" name="edita_usuario" type="button" class="btn btn-warning" data-toggle="modal" data-target="#frm_modal_usuario" data-id-usuario = "'.$id.'" '; if ($edita != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-pencil"></span></button>		                             
-	                             <button id="btn_eliminar" name="elimina_usuario" type="button" class="btn btn-danger" data-id-usuario = "'.$id.'" '; if ($elimina != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-remove"></span></button>
-	                         </td>
-	                     </tr>';
-            };
+	    	$this->table_inst->render();	    	
 
     	}
     	    	

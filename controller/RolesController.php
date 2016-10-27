@@ -9,7 +9,8 @@
 		public $permisosInst;
 		public $roles;
 		public $id_modulo;
-		public $NameCookieApp;		
+		public $NameCookieApp;
+		public $table_inst;
 		
 		//Funciones-------------------------------------------
 		//Espacio para las funciones en general de esta clase.
@@ -23,52 +24,45 @@
 	        //$this->permisosInst = new permisosController();
 	    }
 
-		public function getTablaRoles(){
+		public function getTablaRoles(){	    	
 
-	    	/* En caso de traer solo registros de x usuario
-	    	if($tipo_usuario == "Administrador"){
-	    		//get de los roles  
-	    		$this->roles = $this->getroles();
-	    	}else{
-	    		$this->roles = $this->getrolesUser($id_usuario);
-	    	}*/
+	    	include_once 'helper_controller/render_table.php';
 
 	    	$this->roles = $this->getRoles();
-
 	    	
 	    	//permisos-------------------------------------------------------------------------
     		$arrPermisos = $this->getPermisosModulo_Tipo($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
     		$edita = $arrPermisos[0]["editar"];
     		$elimina = $arrPermisos[0]["eliminar"];
     		$consulta = $arrPermisos[0]["consultar"];
-    		//--------------------------------------------------------------------------------- 
+    		//---------------------------------------------------------------------------------
+    		//Define las variables de la tabla a renderizar
+
+    		//Los campos que se van a ver, se renderizan en este orden
+    		$roles_campos = ["nom_tUsuario","nom_modulo","crear","editar","eliminar","consultar"];
+    		//la configuracion de los botones de opciones
+    		$roles_btn =[
+
+	    		 [
+	    			"tipo"=>"editar",
+	    			"nombre"=>"rol",
+	    			"permiso"=>$edita,
+	    		 ],
+	    		 [
+	    			"tipo"=>"eliminar",
+	    			"nombre"=>"rol",
+	    			"permiso"=>$elimina,
+	    		 ]
+
+	    	];
+	    	//--------------------------------------------------------------------------------- 
 
 	    	if( ($this->roles) && ($consulta==1) ){
 
-	    		for($a=0;$a<sizeof($this->roles);$a++){
+	    		//Instancia el render
+	    		$this->table_inst = new RenderTable($this->roles,$roles_campos,$roles_btn);
 
-                 $id = $this->roles[$a]["pkID"];
-                 $nom_tipo = $this->roles[$a]["nom_tUsuario"];
-                 $nom_modulo = $this->roles[$a]["nom_modulo"];
-                 $crear = $this->roles[$a]["crear"];
-                 $editar = $this->roles[$a]["editar"];
-                 $eliminar = $this->roles[$a]["eliminar"];
-                 $consultar = $this->roles[$a]["consultar"];     
-
-                 echo '
-                             <tr>
-                                 <td>'.$nom_tipo.'</td>
-                                 <td>'.$nom_modulo.'</td>                                                    
-                                 <td>'.$crear.'</td>
-                                 <td>'.$editar.'</td>
-                                 <td>'.$eliminar.'</td>
-                                 <td>'.$consultar.'</td>                                                                                       
-		                         <td>		                         		                             		                           
-		                             <button id="btn_editar" title="Editar" name="edita_rol" type="button" class="btn btn-warning" data-toggle="modal" data-target="#form_modal_rol" data-id-rol = "'.$id.'" '; if ($edita != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-pencil"></span></button>		                             
-		                             <button id="btn_eliminar" title="Eliminar" name="elimina_rol" type="button" class="btn btn-danger" data-id-rol = "'.$id.'" ';  if ($elimina != 1){echo 'disabled="disabled"';} echo '><span class="glyphicon glyphicon-remove"></span></button>
-		                         </td> 
-		                     </tr>';
-                };               
+	    		$this->table_inst->render();
 
 
 	    	}elseif(($this->roles) && ($consulta==0)){
