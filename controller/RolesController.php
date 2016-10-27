@@ -1,8 +1,8 @@
 <?php
 	/**/
 	include_once '../DAO/RolesDAO.php';
-
-	//include_once 'permisosController.php';
+	include_once 'helper_controller/render_table.php';
+	
 		
 	class RolesController extends RolesDAO{
 		
@@ -25,8 +25,6 @@
 	    }
 
 		public function getTablaRoles(){	    	
-
-	    	include_once 'helper_controller/render_table.php';
 
 	    	$this->roles = $this->getRoles();
 	    	
@@ -64,31 +62,16 @@
 
 	    		$this->table_inst->render();
 
-
 	    	}elseif(($this->roles) && ($consulta==0)){
+	    	 
+	    	 $this->table_inst->render_blank();
 
-             echo "<tr>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>		               		               		                                          
-		           </tr>
-		           <h3>En este momento no tiene permiso de consulta para Roles.</h3>";
+             echo "<h3>En este momento no tiene permiso de consulta para Roles.</h3>";
             }else{
+             
+             $this->table_inst->render_blank();
 
-             echo "<tr>		               
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>		               		                                           
-		           </tr>
-		           <h3>En este momento no hay Roles creados.</h3>";
+             echo "<h3>En este momento no hay Roles creados.</h3>";
             };
 
 	    }

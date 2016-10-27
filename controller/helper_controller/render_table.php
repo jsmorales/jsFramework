@@ -45,6 +45,21 @@
 			
 		}
 
+		function render_blank(){
+
+			echo '<tr>';					
+				//pinta los valores de array_data en relacion a los valores de 
+				//array_permit
+				foreach ($this->array_permit as $ll => $val) {				
+							
+					echo '<td></td>';						
+				}
+				//,as el de las opciones
+				echo '<td></td>';				
+
+				echo '</tr>';
+		}
+
 		function render_buttons($arr_val){
 
 			//print_r($arr_val);

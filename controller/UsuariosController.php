@@ -16,8 +16,7 @@ session_start();
 //ini_set('display_errors', 1);
 
 include_once '../DAO/UsuariosDAO.php';
-
-//include_once 'permisosController.php';
+include_once 'helper_controller/render_table.php';
 
 
 class UsuariosController extends UsuariosDAO {
@@ -52,9 +51,7 @@ class UsuariosController extends UsuariosDAO {
     }
 
     //---------------------------------------------------------------------------------
-    public function getTablaUsuarios($tipo){
-
-    	include_once 'helper_controller/render_table.php';
+    public function getTablaUsuarios($tipo){    	
 
     	//permisos-------------------------------------------------------------------------
 		$arrPermisos = $this->getPermisosModulo_Tipo($this->id_modulo,$_COOKIE[$this->NameCookieApp."_IDtipo"]);
@@ -101,26 +98,15 @@ class UsuariosController extends UsuariosDAO {
 
 	    	}elseif(($usuarios) && ($consulta==0)){
 
-             echo "<tr>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>		                              		                                          
-		           </tr>
-		           <h3>En este momento no tiene permiso de consulta para Usuarios.</h3>";
+	    	 $this->table_inst->render_blank();
+
+             echo "<h3>En este momento no tiene permiso de consulta para Usuarios.</h3>";
+
             }else{
 
-	         echo "<tr>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>
-		               <td></td>		               		                                            
-		           </tr>
-		           <h3>En este momento no hay Usuarios creados.</h3>";
+             $this->table_inst->render_blank();
+
+	         echo "<h3>En este momento no hay Usuarios creados.</h3>";
 	        };
 
     	} else {

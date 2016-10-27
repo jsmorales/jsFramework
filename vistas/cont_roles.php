@@ -12,7 +12,7 @@
  ?>
 
 <!-- Form roles -->
-<div class="modal fade" id="form_modal_rol" tabindex="-1" role="dialog">
+<div class="modal fade" id="frm_modal_rol" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
