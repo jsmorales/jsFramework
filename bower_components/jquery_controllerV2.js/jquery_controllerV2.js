@@ -12,6 +12,13 @@
             id : '', //id del registro de BD
             subida : false, //si sube o no archivos
             recarga : true, //si recarga o no la pagina despues de cada accion
+            //tipos de ajax por defecto
+            tipo_ajax : {
+              crear : "inserta",
+              editar : "actualizar",
+              carga : "consultar",
+              eliminar : "eliminar" 
+            },
             //------------------------
             //ajustes del form/modulo
             nom_modulo:'', //el nombre del modulo usado
@@ -89,7 +96,7 @@
 
                 $.ajax({
                   url: "../controller/ajaxController12.php",
-                  data: ajustes.objt_f.srlz+"&tipo=inserta&nom_tabla="+ajustes.nom_tabla,
+                  data: ajustes.objt_f.srlz+"&tipo="+ajustes.tipo_ajax.crear+"&nom_tabla="+ajustes.nom_tabla,
                 })
                 .done(function(data) {            
                   //---------------------
@@ -172,7 +179,7 @@
 
                 $.ajax({
                     url: '../controller/ajaxController12.php',
-                    data: ajustes.objt_f.srlz+"&tipo=actualizar&nom_tabla="+ajustes.nom_tabla,
+                    data: ajustes.objt_f.srlz+"&tipo="+ajustes.tipo_ajax.editar+"&nom_tabla="+ajustes.nom_tabla,
                 })
                 .done(function(data) {             
                     //---------------------
@@ -213,7 +220,7 @@
 
             $.ajax({
                 url: '../controller/ajaxController12.php',
-                data: "pkID="+id+"&tipo=consultar&nom_tabla="+ajustes.nom_tabla,
+                data: "pkID="+id+"&tipo="+ajustes.tipo_ajax.carga+"&nom_tabla="+ajustes.nom_tabla,
             })
             .done(function(data) {
                 /**/
@@ -288,7 +295,7 @@
               //si confirma es true ejecuta ajax
               $.ajax({
                     url: '../controller/ajaxController12.php',
-                    data: "pkID="+id+"&tipo=eliminar&nom_tabla="+ajustes.nom_tabla,
+                    data: "pkID="+id+"&tipo="+ajustes.tipo_ajax.eliminar+"&nom_tabla="+ajustes.nom_tabla,
                 })
                 .done(function(data) {            
                     //---------------------

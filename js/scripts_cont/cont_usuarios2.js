@@ -33,7 +33,7 @@ $(function(){
   	});
 
   	$("[name*='edita_usuario']").jquery_controllerV2({
-		tipo:'carga_editar',
+		  tipo:'carga_editar',
   		nom_modulo:'usuario',
   		nom_tabla:'usuarios',
   		titulo_label:'Editar Usuario',
@@ -45,7 +45,10 @@ $(function(){
   		},
   		functionAfter:function(data){
   			console.log('Ejecutando despues de todo...');
-  			console.log(data);  		
+  			console.log(data);
+        
+        id_usuario = data.mensaje[0].pkID
+
   		}
 	});	
 
@@ -80,14 +83,15 @@ $(function(){
 
         $("#btn_passUsuario").attr('data-action', 'cambia_pass');
 
+        
         $("#btn_passUsuario").click(function(event) {
-	  		/* Act on the event */
-	  		$("#btn_actionUsuario").attr('class', 'hidden');
-	  		pass = $("#pass").val();
+  	  		/* Act on the event */
+  	  		$("#btn_actionusuario").attr('class', 'hidden');
+  	  		pass = $("#pass").val();
 
-	  		var action_pass = $(this).attr('data-action');
-	  		valida_action_pass(action_pass);
-	  	});
+  	  		var action_pass = $(this).attr('data-action');
+  	  		valida_action_pass(action_pass);
+  	  	});
 
 	  	function valida_action_pass(action_pass){
 
@@ -130,7 +134,9 @@ $(function(){
 		    .always(function() {
 		        console.log("complete");
 		    });
+
 	    }
+
     };    
     
 
