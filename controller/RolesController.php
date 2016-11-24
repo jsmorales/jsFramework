@@ -37,7 +37,14 @@
     		//Define las variables de la tabla a renderizar
 
     		//Los campos que se van a ver, se renderizan en este orden
-    		$roles_campos = ["nom_tUsuario","nom_modulo","crear","editar","eliminar","consultar"];
+    		$roles_campos = [
+    			["nombre"=>"nom_tUsuario"],
+    			["nombre"=>"nom_modulo"],
+    			["nombre"=>"crear"],
+    			["nombre"=>"editar"],
+    			["nombre"=>"eliminar"],
+    			["nombre"=>"consultar"]
+    		];
     		//la configuracion de los botones de opciones
     		$roles_btn =[
 

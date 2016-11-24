@@ -42,5 +42,6 @@ Ruta subida de archivos
 */
 //servidor apache 
 $ruta_server = '/var/www/html/'.$directorio_raiz.'/vistas/subidas/';
+$ruta_visor = '';
 //-------------------------------------------------------------------------------------------
 ?>

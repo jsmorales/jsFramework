@@ -63,7 +63,13 @@ class UsuariosController extends UsuariosDAO {
 		//Define las variables de la tabla a renderizar
 
     		//Los campos que se van a ver
-    		$usuarios_campos = ["pkID","alias","nombre","apellido","nom_tipo"];
+    		$usuarios_campos = [
+    			["nombre"=>"pkID"],
+    			["nombre"=>"alias"],
+    			["nombre"=>"nombre"],
+    			["nombre"=>"apellido"],
+    			["nombre"=>"nom_tipo"]
+    		];
     		//la configuracion de los botones de opciones
     		$usuarios_btn =[
 
@@ -80,47 +86,36 @@ class UsuariosController extends UsuariosDAO {
 
 	    	];
 	    //---------------------------------------------------------------------------------
-
-    	if ( $tipo == "Administrador") {
-    		    		
-    		//get de los usuarios
-	    	$usuarios = $this->getUsuarios();	    	
-	    	
-	    	//Instancia el render
-	    	$this->table_inst = new RenderTable($usuarios,$usuarios_campos,$usuarios_btn);
-    		//---------------------------------------------------------------------------------     
-
-	    	//valida si hay usuarios
-	    	if( ($usuarios) && ($consulta==1) ){
-	    		
-	    		//ejecuta el render de la tabla
-	    		$this->table_inst->render();	    		
-
-	    	}elseif(($usuarios) && ($consulta==0)){
-
-	    	 $this->table_inst->render_blank();
-
-             echo "<h3>En este momento no tiene permiso de consulta para Usuarios.</h3>";
-
-            }else{
-
-             $this->table_inst->render_blank();
-
-	         echo "<h3>En este momento no hay Usuarios creados.</h3>";
-	        };
-
-    	} else {
-    		
-    		$usuario = $this->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);    		
-
-	    	//print_r($usuarios_btn);
-
-	    	//Instancia el render
-	    	$this->table_inst = new RenderTable($usuario,$usuarios_campos,$usuarios_btn);
-
-	    	$this->table_inst->render();	    	
-
+	    //get de los usuarios segun sea el perfil
+    	if ( $tipo == "Administrador") {    	
+	    	$usuarios = $this->getUsuarios();
+    	} else {    	
+    		$usuarios = $this->getUsuarioId($_COOKIE[$this->NameCookieApp."_id"]);
     	}
+
+    	//Instancia el render
+    	$this->table_inst = new RenderTable($usuarios,$usuarios_campos,$usuarios_btn);
+		//---------------------------------------------------------------------------------     
+
+    	//valida si hay usuarios
+    	if( ($usuarios) && ($consulta==1) ){
+    		
+    		//ejecuta el render de la tabla
+    		$this->table_inst->render();	    		
+
+    	}elseif(($usuarios) && ($consulta==0)){
+
+    	 $this->table_inst->render_blank();
+
+         echo "<h3>En este momento no tiene permiso de consulta para Usuarios.</h3>";
+
+        }else{
+
+         $this->table_inst->render_blank();
+
+         echo "<h3>En este momento no hay Usuarios creados.</h3>";
+        };
+        //---------------------------------------------------------------------------------
     	    	
     }
 	
