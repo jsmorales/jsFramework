@@ -23,7 +23,7 @@ if [ $1 == "DAO" ] && [ $2 ] ; then
 
 	#inserta contenido------------------------------------------------------
 	echo "<?php" >> ${NOMBRE_DAO}
-	echo "	/**/" >> ${NOMBRE_DAO}
+	echo "/**/" >> ${NOMBRE_DAO}
 	echo "	include_once 'genericoDAO.php';" >> ${NOMBRE_DAO}	
 	echo "		" >> ${NOMBRE_DAO}
 	echo "	class $2DAO extends GenericoDAO {" >> ${NOMBRE_DAO}
@@ -67,7 +67,7 @@ elif [ $1 == "controller" ] && [ $2 ] && [ $3 ]; then
 
 	#inserta contenido------------------------------------------------------
 	echo "<?php" >> ${NOMBRE_CONTROLLER}
-	echo "	/**/" >> ${NOMBRE_CONTROLLER}
+	echo "/**/" >> ${NOMBRE_CONTROLLER}
 	echo "	include_once '../DAO/$2DAO.php';" >> ${NOMBRE_CONTROLLER} #nombre del DAO que debe existir previamente.	
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "	class $2Controller extends $2DAO{" >> ${NOMBRE_CONTROLLER} #extiende del DAO.
@@ -80,7 +80,7 @@ elif [ $1 == "controller" ] && [ $2 ] && [ $3 ]; then
 	echo "			" >> ${NOMBRE_CONTROLLER}
 	echo "			include('../conexion/datos.php');" >> ${NOMBRE_CONTROLLER}
 	echo "			" >> ${NOMBRE_CONTROLLER}
-	echo "			$""this->id_modulo = $3; id de la tabla modulos" >> ${NOMBRE_CONTROLLER}
+	echo "			$""this->id_modulo = $3; //id de la tabla modulos" >> ${NOMBRE_CONTROLLER}
 	echo "			$""this->NameCookieApp = $""NomCookiesApp;" >> ${NOMBRE_CONTROLLER}	
 	echo "			" >> ${NOMBRE_CONTROLLER}
 	echo "		}" >> ${NOMBRE_CONTROLLER}
@@ -88,6 +88,13 @@ elif [ $1 == "controller" ] && [ $2 ] && [ $3 ]; then
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "		//Funciones-------------------------------------------" >> ${NOMBRE_CONTROLLER}
 	echo "		//Espacio para las funciones de esta clase." >> ${NOMBRE_CONTROLLER}
+	echo "		" >> ${NOMBRE_CONTROLLER}
+	echo "		//permisos---------------------------------------------------------------------" >> ${NOMBRE_CONTROLLER}
+	echo "		//$""arrPermisos = $""this->getPermisosModulo_Tipo($""this->id_modulo,$""_COOKIE[$""this->NameCookieApp.\"_IDtipo\"]);" >> ${NOMBRE_CONTROLLER}
+	echo "		//$""edita = $""arrPermisos[0][\"editar\"];" >> ${NOMBRE_CONTROLLER}
+	echo "		//$""elimina = $""arrPermisos[0][\"eliminar\"];" >> ${NOMBRE_CONTROLLER}
+	echo "		//$""consulta = $""arrPermisos[0][\"consultar\"];" >> ${NOMBRE_CONTROLLER}
+	echo "		//-----------------------------------------------------------------------------" >> ${NOMBRE_CONTROLLER}
 	echo "		" >> ${NOMBRE_CONTROLLER}
 	echo "	}" >> ${NOMBRE_CONTROLLER}
 	echo "?>" >> ${NOMBRE_CONTROLLER}
@@ -212,6 +219,7 @@ elif [ $1 == "cont_js" ] && [ $2 ]; then
 	#inserta contenido------------------------------------------------------
 	echo "$""(function(){" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}	
+	echo "	 //https://github.com/jsmorales/jquery_controllerV2" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}
 	echo "	 $("#btn_nuevo_").jquery_controllerV2({});" >> ${NOMBRE_CONT_JS}
 	echo "	 " >> ${NOMBRE_CONT_JS}
