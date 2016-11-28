@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `archivo` (
 --
 -- Volcado de datos para la tabla `archivo`
 --
-
+/*
 INSERT INTO `archivo` (`pkID`, `pkID_hojaVida`, `url_archivo`, `des_archivo`) VALUES
 (1, 1, 'HV_Johan_Morales.pdf', 'Hoja de vida de Johan Morales'),
 (2, 1, 'machine-690190_1280.jpg', 'Certificado desarrollo1'),
@@ -82,7 +82,7 @@ INSERT INTO `archivo` (`pkID`, `pkID_hojaVida`, `url_archivo`, `des_archivo`) VA
 (40, 9, 'razer1.png', 'doc6'),
 (41, 10, 'TRANSFERENCIA DE ARQUITECTURA DE SOFTWARE.pdf', 'hoja prueba unitaria'),
 (42, 10, '120161040006476_00002 (1) (1).docx', 'anexo prueba unitaria');
-
+*/
 -- --------------------------------------------------------
 
 --
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
 --
 
 INSERT INTO `modulos` (`pkID`, `Nombre`, `fkID_padre`) VALUES
-(1, 'hvida', NULL),
+/*(1, 'hvida', NULL),
 (2, 'formatos', NULL),
 (3, 'procesos', NULL),
 (4, 'proyectos', NULL),
@@ -111,7 +111,7 @@ INSERT INTO `modulos` (`pkID`, `Nombre`, `fkID_padre`) VALUES
 (9, 'detalles_proyecto/presupuesto', NULL),
 (10, 'detalles_proyecto/documentos', NULL),
 (11, 'detalles_proyecto/personal', NULL),
-(12, 'detalles_proceso/documentos', NULL),
+(12, 'detalles_proceso/documentos', NULL),*/
 (13, 'usuarios', NULL),
 (14, 'roles', NULL);
 
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `permisos` (
 --
 
 INSERT INTO `permisos` (`pkID`, `fkID_tipo_usuario`, `fkID_modulo`, `crear`, `editar`, `eliminar`, `consultar`) VALUES
-(2, 2, 1, 0, 1, 0, 1),
+/*(2, 2, 1, 0, 1, 0, 1),
 (3, 3, 1, 0, 0, 1, 1),
 (4, 1, 2, 1, 1, 1, 1),
 (5, 1, 6, 1, 1, 1, 1),
@@ -146,13 +146,15 @@ INSERT INTO `permisos` (`pkID`, `fkID_tipo_usuario`, `fkID_modulo`, `crear`, `ed
 (9, 1, 9, 1, 1, 0, 1),
 (10, 1, 10, 1, 1, 1, 1),
 (11, 1, 8, 1, 1, 1, 1),
-(12, 1, 12, 1, 0, 0, 1),
+(12, 1, 12, 1, 0, 0, 1),*/
+
 (13, 1, 13, 1, 1, 1, 1),
+(15, 1, 14, 1, 1, 1, 1);
+/*
 (14, 2, 13, 0, 1, 0, 1),
-(15, 1, 14, 1, 1, 1, 1),
 (16, 3, 14, 1, 0, 0, 1),
 (17, 1, 1, 1, 1, 1, 1),
-(18, 1, 11, 1, 1, 0, 1);
+(18, 1, 11, 1, 1, 0, 1)*/
 
 -- --------------------------------------------------------
 
@@ -170,13 +172,13 @@ CREATE TABLE IF NOT EXISTS `tipo_usuario` (
 --
 
 INSERT INTO `tipo_usuario` (`pkID`, `nombre`) VALUES
-(1, 'Administrador'),
-(2, 'jefe_personal'),
+(1, 'Administrador');
+/*(2, 'jefe_personal'),
 (3, 'lider'),
 (4, 'tipo_prueba _usuario'),
 (5, 'prueba_tipo_2'),
 (6, 'prueba tipo 3'),
-(7, 'tipo_4');
+(7, 'tipo_4');*/
 
 -- --------------------------------------------------------
 
@@ -200,6 +202,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`pkID`, `alias`, `pass`, `pass_conf`, `nombre`, `apellido`, `email`, `fkID_tipo`) VALUES
+/*
 (1, 'jsmorales', '8cb2237d0679ca88db6464eac60da96345513964', '', 'Johan', 'Morales', 'jhellmetal2000@gmail.com', 1),
 (3, 'nbarrero', '00fd4b4549a1094aae926ef62e9dbd3cdcc2e456', '', 'Nancy', 'Barrero', 'nbarrero@lunel-ie.com', 3),
 (4, 'isanchez', '3acd0be86de7dcccdbf91b20f94a68cea535922d', '', 'Ingrid solangie', 'Sanchez Romira', '', 2),
@@ -209,7 +212,8 @@ INSERT INTO `usuarios` (`pkID`, `alias`, `pass`, `pass_conf`, `nombre`, `apellid
 (10, 'Sandra.2113', '8cb2237d0679ca88db6464eac60da96345513964', 'dd8efd3d9dacb3b894ba0b77ec65b1bfb88c9043', 'Sandra', 'Parra', 'sandra.2113@gmail.com', 1),
 (11, 'jpersonal', '8cb2237d0679ca88db6464eac60da96345513964', '8cb2237d0679ca88db6464eac60da96345513964', 'Lana', 'Lang', '', 2),
 (14, 'qwerty', '00fd4b4549a1094aae926ef62e9dbd3cdcc2e456', '', 'qwerty', 'qwerty', '', 1);
-
+*/
+(1, 'root', '39dfa55283318d31afe5a3ff4a0e3253e2045e43', '', 'root', 'root', 'example@example.com', 1);
 --
 -- Índices para tablas volcadas
 --

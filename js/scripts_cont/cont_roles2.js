@@ -51,7 +51,7 @@ $(function(){
 	        	 if (val.nombre) {
 	        	 	$("#"+id).append('<option value="'+val.pkID+'">'+val.nombre+'</option>')
 	        	 } else {
-	        	 	$("#"+id).append('<option value="'+val.pkID+'">'+val.Nombre+'</option>')
+	        	 	$("#"+id).append('<option value="'+val.pkID+'">'+val.pkID+' - '+val.Nombre+'</option>')
 	        	 }
 	        	 
 	        });
