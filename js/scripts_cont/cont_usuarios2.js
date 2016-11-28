@@ -20,7 +20,13 @@ $(function(){
   		tipo:'inserta/edita',
   		nom_modulo:'usuario',
   		nom_tabla:'usuarios',
-  		recarga:false,
+      //cambiando el tipo de ajax para poder crear el usuario
+      //con la contraseña encriptada.
+      tipo_ajax : {
+        crear : "inserta_registro",
+        editar : "actualizar"
+      },
+  		//recarga:false,
   		functionBefore:function(ajustes){
   			console.log('Ejecutando antes de todo...');
   			console.log(ajustes);

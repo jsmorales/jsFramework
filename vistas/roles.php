@@ -6,7 +6,7 @@
 
 	//---------------------------------------------------------
 	$pagina = "cont_roles.php";
-	$scripts = array('cont_roles.js');
+	$scripts = array('cont_roles2.js');
 	//$perfiles_in = array('Administrador','jefe_personal');
 	$id_modulo = 14;
 	//---------------------------------------------------------
