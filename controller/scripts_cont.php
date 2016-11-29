@@ -1,4 +1,3 @@
-
 <?php 
     /*
     ini_set('display_errors', 1);
@@ -36,7 +35,7 @@
                     <!-- DataTables JavaScript -->
                     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
                     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-                    <script src="../bower_components/datatables/data_tabla.js"></script>
+                    <script src="../js/data_tabla.js"></script>
                     
                     <!-- plugin para validar -->
                     <script src="../js/plugins/validav1/valida_p_v1.js"></script>
