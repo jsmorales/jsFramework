@@ -8,84 +8,66 @@
 	*/
 	class Scripts {
 
-				
-		public function getJSON(){
-
-			//$ficheros1  = scandir($directorio);
-
-			$salida = shell_exec('cd .. && bower list --paths > paths.json');
-			$ini = shell_exec('cd .. && sed -i "1i {" paths.json');
-			$fin = shell_exec('cd .. && echo "}" >> paths.json');
-			//sed -i '$a Aqui el texto que ira en la ultima linea' archivo.txt
-			//echo "get json ok.";
-
-			
-		}
-
-		public function getDataJson(){
-			
-			$data = file_get_contents("../paths.json");		
-			$paths = json_decode($data);
-			//echo json_last_error();
-
-			//echo $data;
-
-			$replace = str_replace("'", "\"", $data);
-
-			//echo $replace;
-
-			$pregReplace = preg_replace("/[^,]+(\s)+\w+/i", "\"\&\"", $replace);
-
-			echo $pregReplace;
-			/*
-			//---------------------------------------
-			if (is_writable("../paths.json")) {
-				$archivo = fopen("../paths.json", 'w');
-				$fwrite = fwrite($archivo, $replace);
-				fclose($archivo);
-				//-------------------------------------
-					
-					$data = file_get_contents("../paths.json");
-					$paths = json_decode($data);
-					//echo $paths;
-
-					foreach ($paths as $key => $value){ 
-
-						if(sizeof($value)>1){
-
-							foreach ($value as $ll => $val) {
-								echo "llave: ".$ll." valor: ".$val."<br>";
-							};
-
-						}else{
-							echo "llave: ".$key." valor: ".$value."<br>";
-						};
-
-					}
-
-					//echo json_last_error();
-				//-------------------------------------
-			}else{
-				echo "El archivo paths no es escribible";
-			}*/
-
-			//$data = file_get_contents("../paths.json");
-			//$paths = json_decode($data);
-			//echo json_encode($paths);
-
-			//$fwrite = fwrite($archivo, $replace));
-
-			//fclose($archivo);
-		}
-
 		
+		public $arr_scripts = [];
+
+
+		public function creaArrayScripts(){
+
+
+			$this->arr_scripts = [
+
+				"jQuery"=>"../bower_components/jquery/dist/jquery.min.js",
+				"jQueryUI"=>"../js/plugins/autocompleta/jquery-ui.min.js",
+				"Bootstrap"=>"../bower_components/bootstrap/dist/js/bootstrap.min.js",
+				"Metis Menu"=>"../bower_components/metisMenu/dist/metisMenu.min.js",
+				"DataTables"=>"../bower_components/datatables/media/js/jquery.dataTables.min.js",
+				"DataTables-Bootstrap"=>"../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js",
+				"DataTables-Data"=>"../js/data_tabla.js",
+				//"validav1"=>"../js/plugins/validav1/valida_p_v1.js",
+				"jquery ui widget"=>"../js/jquery.ui.widget.js",
+				"jquery iframe-transport"=>"../js/jquery.iframe-transport.js",
+				"fileupload plugin"=>"../js/jquery.fileupload.js",
+				"moment"=>"../js/plugins/calendario/moment.min.js",
+				"jquery-ui-timepicker"=>"../js/plugins/calendario/jquery-ui-timepicker-addon.js",
+				"Setup Calendario"=>"../js/plugins/calendario/calendarCotizacion.js",
+				"mask.js"=>"../js/plugins/mask/jquery.mask.js",
+				"formatCurrency.js"=>"../js/plugins/mask/jquery.formatCurrency.js",
+				"accounting.js"=>"../js/plugins/mask/accounting.min.js",
+				"timer.js"=>"../js/plugins/sesion_plugin/timer.jquery.js",
+				"bootstrap-treeview"=>"../bower_components/bootstrap-treeview/public/js/bootstrap-treeview.js",
+				"valida_p_v1.js"=>"../bower_components/valida_p.js/js/valida_p_v1.js",
+				"jquery_controllerV2"=>"../bower_components/jquery_controllerV2.js/jquery_controllerV2.js",
+				"validaArchivoPlugin.js"=>"../bower_components/validaArchivoPlugin.js/validaArchivoPlugin.js",
+				"raphael-min.js"=>"../bower_components/raphael/raphael-min.js",
+				"morris.js"=>"../bower_components/morrisjs/morris.min.js",
+				"sb-admin-2.js"=>"../dist/js/sb-admin-2.js",
+
+			];
+
+		}
+		
+		public function standar(){
+
+			$this->creaArrayScripts();
+
+			$paths = "";
+
+			foreach ($this->arr_scripts as $key => $value){
+				
+				$paths .= "<script src='../".$value."'></script>\n";
+				$paths .= "<!-- ".$key." -->\n";
+
+			}
+
+			echo $paths;
+		}
+
 	}
 
 
 	$script = new Scripts();
-
-	$script->getJSON();
-
-	$script->getDataJson();
+	$script->standar();
+	
 
  ?>
